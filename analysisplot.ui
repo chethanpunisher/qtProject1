@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AnalysisPlot</class>
+ <widget class="QDialog" name="AnalysisPlot">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>883</width>
+    <height>628</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_5">
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout_4">
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QLabel" name="NameLabel">
+         <property name="font">
+          <font>
+           <pointsize>28</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">border: 2px  solid lightblue; border-radius: 5px</string>
+         </property>
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="AddrLabel">
+         <property name="styleSheet">
+          <string notr="true">border: 2px  solid lightblue; border-radius: 5px</string>
+         </property>
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout_7">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_10">
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="0,2">
+           <item>
+            <widget class="QLabel" name="SampleHeading">
+             <property name="styleSheet">
+              <string notr="true">border: 2px  solid lightblue; border-radius: 5px</string>
+             </property>
+             <property name="text">
+              <string>Sample Name :</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="sampleLabel">
+             <property name="styleSheet">
+              <string notr="true">border: 2px  solid lightblue; border-radius: 5px; background-color: lightblue</string>
+             </property>
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="0,2,0,5">
+           <item>
+            <widget class="QLabel" name="label_4">
+             <property name="styleSheet">
+              <string notr="true">border: 2px  solid lightblue; border-radius: 5px</string>
+             </property>
+             <property name="text">
+              <string>Amplitude :</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="AmplitudeLabel">
+             <property name="styleSheet">
+              <string notr="true">border: 2px  solid lightblue; border-radius: 5px; background-color: lightblue</string>
+             </property>
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_3">
+             <property name="styleSheet">
+              <string notr="true">border: 2px  solid lightblue; border-radius: 5px</string>
+             </property>
+             <property name="text">
+              <string>Ton</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer">
+             <property name="orientation">
+              <enum>Qt::Orientation::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="0,2">
+           <item>
+            <widget class="QLabel" name="label_5">
+             <property name="styleSheet">
+              <string notr="true">border: 2px  solid lightblue; border-radius: 5px</string>
+             </property>
+             <property name="text">
+              <string>Start Time :</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="startTimeLabel">
+             <property name="styleSheet">
+              <string notr="true">border: 2px  solid lightblue; border-radius: 5px; background-color: lightblue</string>
+             </property>
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="0,2">
+           <item>
+            <widget class="QLabel" name="label_6">
+             <property name="styleSheet">
+              <string notr="true">border: 2px  solid lightblue; border-radius: 5px</string>
+             </property>
+             <property name="text">
+              <string>Stop Time :</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="stopTimeLabel">
+             <property name="styleSheet">
+              <string notr="true">border: 2px  solid lightblue; border-radius: 5px; background-color: lightblue</string>
+             </property>
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,2,0,5">
+           <item>
+            <widget class="QLabel" name="label_7">
+             <property name="styleSheet">
+              <string notr="true">border: 2px  solid lightblue; border-radius: 5px</string>
+             </property>
+             <property name="text">
+              <string>Frequency :</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="frequencyLabel">
+             <property name="styleSheet">
+              <string notr="true">border: 2px  solid lightblue; border-radius: 5px; background-color: lightblue</string>
+             </property>
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_2">
+             <property name="styleSheet">
+              <string notr="true">border: 2px  solid lightblue; border-radius: 5px</string>
+             </property>
+             <property name="text">
+              <string>Hz</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Orientation::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,2,0,5">
+           <item>
+            <widget class="QLabel" name="label_8">
+             <property name="styleSheet">
+              <string notr="true">border: 2px  solid lightblue; border-radius: 5px</string>
+             </property>
+             <property name="text">
+              <string>Set Point :</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="setPointLabel">
+             <property name="styleSheet">
+              <string notr="true">border: 2px  solid lightblue; border-radius: 5px; background-color: lightblue</string>
+             </property>
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_11">
+             <property name="styleSheet">
+              <string notr="true">border: 2px  solid lightblue; border-radius: 5px</string>
+             </property>
+             <property name="text">
+              <string>Ton</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_3">
+             <property name="orientation">
+              <enum>Qt::Orientation::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,2">
+           <item>
+            <widget class="QLabel" name="label_9">
+             <property name="styleSheet">
+              <string notr="true">border: 2px  solid lightblue; border-radius: 5px</string>
+             </property>
+             <property name="text">
+              <string>Start Date :</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="startDateLabel">
+             <property name="styleSheet">
+              <string notr="true">border: 2px  solid lightblue; border-radius: 5px; background-color: lightblue</string>
+             </property>
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0,2">
+           <item>
+            <widget class="QLabel" name="label_10">
+             <property name="styleSheet">
+              <string notr="true">border: 2px  solid lightblue; border-radius: 5px</string>
+             </property>
+             <property name="text">
+              <string>End Date :</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="endDateLabel">
+             <property name="styleSheet">
+              <string notr="true">border: 2px  solid lightblue; border-radius: 5px; background-color: lightblue</string>
+             </property>
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_11" stretch="10,9">
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="font">
+          <font>
+           <pointsize>16</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Stop Cycle :</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="stopCycleLabel">
+         <property name="font">
+          <font>
+           <pointsize>16</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout_6"/>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_5">
+     <item>
+      <widget class="QPushButton" name="moveLeftButton">
+       <property name="text">
+        <string>Move Left</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="moveRightButton">
+       <property name="text">
+        <string>Move Right</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
