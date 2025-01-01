@@ -60,6 +60,16 @@
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_2">
          <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_12">
+           <item>
+            <widget class="QComboBox" name="comboBox_sampleSelec"/>
+           </item>
+           <item>
+            <widget class="QComboBox" name="comboBox_batchSelec"/>
+           </item>
+          </layout>
+         </item>
+         <item>
           <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="0,2">
            <item>
             <widget class="QLabel" name="SampleHeading">

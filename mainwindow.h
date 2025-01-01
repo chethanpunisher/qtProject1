@@ -38,8 +38,8 @@ class WelcomeDialog;
 
 QT_BEGIN_NAMESPACE
 
-    namespace Ui {
-    class MainWindow;
+namespace Ui {
+class MainWindow;
 }
 QT_END_NAMESPACE
 
@@ -123,6 +123,10 @@ private slots:
 
     double updateWave();
 
+    void on_comboBox_existingParamSelec_currentTextChanged(const QString &arg1);
+
+    void on_comboBox_existingParamSelec_currentIndexChanged(int index);
+
 private:
     void initUI();
     void serialInit(QString port);
@@ -136,10 +140,14 @@ private:
     void writeSerial(const QString data1);
     void errorMessage(int state);
     void readJsonConfig(const QString &filePath);
+    void readComFromJson(const QString &filePath);
     void updateExcXInJson(const QString &filePath, const QString &sampleName, double newExcX);
     void getExcXInJson(const QString &filePath, const QString &sampleName, int newExcX);
     void loadLabelUp();
     void readProcess(QString data1);
+    void loadComboBox();
+    QList<QJsonObject> listSamplesByAscendingIndex(JsonManager& jsonManager4);
+    bool isItemInComboBox(const QString& itemText);
     PlotWindow *plotWindow;
     AnalysisPlot *analysisPlot;
     elementsContainer* ec;
@@ -196,6 +204,9 @@ private:
     ProcessCondition processCondition;
     QString modAmp;
     QString modSp;
+    QString comPortName;
+    bool comboFlg;
+    bool graphFlg;
 };
 
 class WelcomeDialog : public QDialog {

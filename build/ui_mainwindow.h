@@ -54,6 +54,8 @@ public:
     QLabel *label_8;
     QLabel *label_setPoint;
     QLabel *label_14;
+    QLabel *label_15;
+    QComboBox *comboBox_existingParamSelec;
     QSpacerItem *verticalSpacer;
     QHBoxLayout *horizontalLayout_9;
     QPushButton *pushButton_start;
@@ -246,6 +248,18 @@ public:
         horizontalLayout_8->setStretch(1, 13);
 
         verticalLayout->addLayout(horizontalLayout_8);
+
+        label_15 = new QLabel(centralWidget);
+        label_15->setObjectName("label_15");
+        label_15->setStyleSheet(QString::fromUtf8("border: 2px  solid lightblue; border-radius: 5px"));
+
+        verticalLayout->addWidget(label_15);
+
+        comboBox_existingParamSelec = new QComboBox(centralWidget);
+        comboBox_existingParamSelec->setObjectName("comboBox_existingParamSelec");
+        comboBox_existingParamSelec->setStyleSheet(QString::fromUtf8("border: 2px  solid lightblue; border-radius: 5px"));
+
+        verticalLayout->addWidget(comboBox_existingParamSelec);
 
         verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Expanding);
 
@@ -483,6 +497,7 @@ public:
         label_8->setText(QCoreApplication::translate("MainWindow", "Set point - ", nullptr));
         label_setPoint->setText(QString());
         label_14->setText(QCoreApplication::translate("MainWindow", "Ton", nullptr));
+        label_15->setText(QCoreApplication::translate("MainWindow", "Select Existing Parameters", nullptr));
         pushButton_start->setText(QCoreApplication::translate("MainWindow", "Start", nullptr));
         pushButton_stop->setText(QCoreApplication::translate("MainWindow", "Stop/Reset", nullptr));
         pushButton_delete->setText(QCoreApplication::translate("MainWindow", "Delete", nullptr));

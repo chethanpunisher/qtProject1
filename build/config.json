@@ -1,5 +1,6 @@
 {
-    "calibration": "48",
+    "calibration": 147,
+    "comPort": "COM13",
     "database": {
         "password": "pie@1234",
         "username": "pieIndia"

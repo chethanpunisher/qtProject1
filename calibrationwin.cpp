@@ -50,7 +50,7 @@ void calibrationWin::on_pushButton_clicked()
         QString str1;
         QString command;
         str1 = ui->lineEdit_calibrationIput->text();
-        command = "set calibration " + str1 + "\n";
+        command = "set cali " + str1 + "\n";
         //writeSerial(command);
 
         // Ensure all data is written before closing the port
@@ -60,8 +60,7 @@ void calibrationWin::on_pushButton_clicked()
             //qDebug()<<cali;
             QMessageBox::information(nullptr, "Success", "Calibration sent successfully!");
 
-            //QString configFilePath = "config.json";
-            //generateJsonConfig();
+
         } else {
             qDebug() << "Failed to send message.";
         }
@@ -77,6 +76,11 @@ void calibrationWin::on_pushButton_clicked()
     }
 }
 
+void calibrationWin::onCalSet(double calVal){
+    QString configFilePath = "config.json";
+    generateJsonConfig(configFilePath, calVal);
+}
+
 void calibrationWin::writeSerial(const QString data1){
     QString data = data1;
     if (!serial->writeToSerial(data)) {
@@ -85,31 +89,51 @@ void calibrationWin::writeSerial(const QString data1){
     }
 }
 
-void calibrationWin::generateJsonConfig(const QString &filePath, const QString &calibrationVal) {
-    // Create a JSON object to store the configuration
+void calibrationWin::generateJsonConfig(const QString &filePath, const double &calibrationVal) {
+
     QJsonObject configObject;
 
-    // Add basic configuration settings
+    // Check if the file exists
+    QFile jsonFile(filePath);
+    if (jsonFile.exists()) {
+        if (!jsonFile.open(QIODevice::ReadOnly)) {
+            qWarning("Couldn't open file for reading.");
+            return;
+        }
+
+        // Read the existing JSON file
+        QByteArray jsonData = jsonFile.readAll();
+        jsonFile.close();
+
+        // Parse the JSON data
+        QJsonDocument jsonDoc(QJsonDocument::fromJson(jsonData));
+        if (!jsonDoc.isNull() && jsonDoc.isObject()) {
+            configObject = jsonDoc.object();
+        } else {
+            qWarning("Invalid JSON file. Starting with a new configuration.");
+        }
+    }
+
+    // Modify or add the specific parameters
     configObject["calibration"] = calibrationVal;
 
-    // Add additional settings in nested objects
-    QJsonObject databaseConfig;
-    databaseConfig["username"] = "pieIndia";
-    databaseConfig["password"] = "pie@1234";
+    QJsonObject databaseConfig = configObject.value("database").toObject(); // Get existing database object
+    databaseConfig["username"] = "pieIndia"; // Update or add username
+    databaseConfig["password"] = "pie@1234"; // Update or add password
     configObject["database"] = databaseConfig;
 
-    // Write to JSON file
-    QJsonDocument jsonDoc(configObject);
-    QFile jsonFile(filePath);
+    // Write the updated JSON back to the file
+    QJsonDocument updatedJsonDoc(configObject);
     if (!jsonFile.open(QIODevice::WriteOnly)) {
         qWarning("Couldn't open file for writing.");
         return;
     }
 
-    jsonFile.write(jsonDoc.toJson());
+    jsonFile.write(updatedJsonDoc.toJson());
     jsonFile.close();
-    qDebug() << "Configuration file created successfully!";
+    qDebug() << "Configuration file updated successfully!";
 }
+
 
 
 void calibrationWin::on_pushButton_2_clicked()
@@ -141,8 +165,8 @@ void calibrationWin::readSerial(const QString &caliVal){
     if(data1.startsWith("calibrate")){
         bool ok;
         data1.remove("calibrate ").remove("\r\n");
-        QString configFilePath = "config.json";
-        generateJsonConfig(configFilePath, data1);
+        //QString configFilePath = "config.json";
+        //generateJsonConfig(configFilePath, data1);
     }
 }
 

@@ -27,6 +27,7 @@ void DataParser::processMessage(const QString& message) {
     // Define regular expressions for each data pattern using QRegularExpression
     QRegularExpression modeRegex("^mode(\\d+) : (-?\\d+(\\.\\d*)?)$");  // Matches "mode<number> : <load>"
     QRegularExpression cycleCountRegex("^CC (\\d+)$");                  // Matches "CC <cycle count>"
+    QRegularExpression calSetRegex("^CalSet : (-?\\d+(\\.\\d*)?)$");
 
     QRegularExpressionMatch match;
 
@@ -45,6 +46,15 @@ void DataParser::processMessage(const QString& message) {
     if (match.hasMatch()) {
         int cycleCount = match.captured(1).toInt();  // Extract the cycle count
         emit cycleCountParsed(cycleCount);  // Emit the parsed cycle count
+        //qDebug() << "Parsed Cycle Count:" << cycleCount;
+        return;
+    }
+
+    // Match against Calibration value (CC)
+    match = calSetRegex.match(message);
+    if (match.hasMatch()) {
+        double calV = match.captured(1).toInt();  // Extract the cycle count
+        emit calParsed(calV);  // Emit the parsed cycle count
         //qDebug() << "Parsed Cycle Count:" << cycleCount;
         return;
     }

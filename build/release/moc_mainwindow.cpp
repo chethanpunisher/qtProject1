@@ -82,7 +82,9 @@ constexpr auto qt_meta_stringdata_CLASSMainWindowENDCLASS = QtMocHelpers::string
     "std::pair<QString,QString>",
     "requestPasscode",
     "correctPasscode",
-    "updateWave"
+    "updateWave",
+    "on_comboBox_existingParamSelec_currentTextChanged",
+    "on_comboBox_existingParamSelec_currentIndexChanged"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -95,7 +97,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-      35,   14, // methods
+      37,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -103,41 +105,43 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    1,  224,    2, 0x08,    1 /* Private */,
-       4,    1,  227,    2, 0x08,    3 /* Private */,
-       5,    0,  230,    2, 0x08,    5 /* Private */,
-       6,    0,  231,    2, 0x08,    6 /* Private */,
-       7,    0,  232,    2, 0x08,    7 /* Private */,
-       8,    0,  233,    2, 0x08,    8 /* Private */,
-       9,    0,  234,    2, 0x08,    9 /* Private */,
-      10,    0,  235,    2, 0x08,   10 /* Private */,
-      11,    1,  236,    2, 0x08,   11 /* Private */,
-      13,    0,  239,    2, 0x08,   13 /* Private */,
-      14,    0,  240,    2, 0x08,   14 /* Private */,
-      15,    0,  241,    2, 0x08,   15 /* Private */,
-      16,    0,  242,    2, 0x08,   16 /* Private */,
-      17,    0,  243,    2, 0x08,   17 /* Private */,
-      18,    1,  244,    2, 0x08,   18 /* Private */,
-      19,    0,  247,    2, 0x08,   20 /* Private */,
-      20,    0,  248,    2, 0x08,   21 /* Private */,
-      21,    1,  249,    2, 0x08,   22 /* Private */,
-      22,    0,  252,    2, 0x08,   24 /* Private */,
-      23,    0,  253,    2, 0x08,   25 /* Private */,
-      24,    1,  254,    2, 0x08,   26 /* Private */,
-      26,    1,  257,    2, 0x08,   28 /* Private */,
-      28,    0,  260,    2, 0x08,   30 /* Private */,
-      29,    0,  261,    2, 0x08,   31 /* Private */,
-      30,    0,  262,    2, 0x08,   32 /* Private */,
-      31,    0,  263,    2, 0x08,   33 /* Private */,
-      32,    0,  264,    2, 0x08,   34 /* Private */,
-      33,    0,  265,    2, 0x08,   35 /* Private */,
-      34,    2,  266,    2, 0x08,   36 /* Private */,
-      37,    1,  271,    2, 0x08,   39 /* Private */,
-      39,    1,  274,    2, 0x08,   41 /* Private */,
-      41,    0,  277,    2, 0x08,   43 /* Private */,
-      42,    0,  278,    2, 0x08,   44 /* Private */,
-      44,    1,  279,    2, 0x08,   45 /* Private */,
-      46,    0,  282,    2, 0x08,   47 /* Private */,
+       1,    1,  236,    2, 0x08,    1 /* Private */,
+       4,    1,  239,    2, 0x08,    3 /* Private */,
+       5,    0,  242,    2, 0x08,    5 /* Private */,
+       6,    0,  243,    2, 0x08,    6 /* Private */,
+       7,    0,  244,    2, 0x08,    7 /* Private */,
+       8,    0,  245,    2, 0x08,    8 /* Private */,
+       9,    0,  246,    2, 0x08,    9 /* Private */,
+      10,    0,  247,    2, 0x08,   10 /* Private */,
+      11,    1,  248,    2, 0x08,   11 /* Private */,
+      13,    0,  251,    2, 0x08,   13 /* Private */,
+      14,    0,  252,    2, 0x08,   14 /* Private */,
+      15,    0,  253,    2, 0x08,   15 /* Private */,
+      16,    0,  254,    2, 0x08,   16 /* Private */,
+      17,    0,  255,    2, 0x08,   17 /* Private */,
+      18,    1,  256,    2, 0x08,   18 /* Private */,
+      19,    0,  259,    2, 0x08,   20 /* Private */,
+      20,    0,  260,    2, 0x08,   21 /* Private */,
+      21,    1,  261,    2, 0x08,   22 /* Private */,
+      22,    0,  264,    2, 0x08,   24 /* Private */,
+      23,    0,  265,    2, 0x08,   25 /* Private */,
+      24,    1,  266,    2, 0x08,   26 /* Private */,
+      26,    1,  269,    2, 0x08,   28 /* Private */,
+      28,    0,  272,    2, 0x08,   30 /* Private */,
+      29,    0,  273,    2, 0x08,   31 /* Private */,
+      30,    0,  274,    2, 0x08,   32 /* Private */,
+      31,    0,  275,    2, 0x08,   33 /* Private */,
+      32,    0,  276,    2, 0x08,   34 /* Private */,
+      33,    0,  277,    2, 0x08,   35 /* Private */,
+      34,    2,  278,    2, 0x08,   36 /* Private */,
+      37,    1,  283,    2, 0x08,   39 /* Private */,
+      39,    1,  286,    2, 0x08,   41 /* Private */,
+      41,    0,  289,    2, 0x08,   43 /* Private */,
+      42,    0,  290,    2, 0x08,   44 /* Private */,
+      44,    1,  291,    2, 0x08,   45 /* Private */,
+      46,    0,  294,    2, 0x08,   47 /* Private */,
+      47,    1,  295,    2, 0x08,   48 /* Private */,
+      48,    1,  298,    2, 0x08,   50 /* Private */,
 
  // slots: parameters
     QMetaType::Void, QMetaType::QString,    3,
@@ -175,6 +179,8 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
     0x80000000 | 43,
     QMetaType::Bool, QMetaType::QString,   45,
     QMetaType::Double,
+    QMetaType::Void, QMetaType::QString,    3,
+    QMetaType::Void, QMetaType::Int,   12,
 
        0        // eod
 };
@@ -269,7 +275,13 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<bool, std::false_type>,
         QtPrivate::TypeAndForceComplete<const QString &, std::false_type>,
         // method 'updateWave'
-        QtPrivate::TypeAndForceComplete<double, std::false_type>
+        QtPrivate::TypeAndForceComplete<double, std::false_type>,
+        // method 'on_comboBox_existingParamSelec_currentTextChanged'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const QString &, std::false_type>,
+        // method 'on_comboBox_existingParamSelec_currentIndexChanged'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>
     >,
     nullptr
 } };
@@ -319,6 +331,8 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
             if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = std::move(_r); }  break;
         case 34: { double _r = _t->updateWave();
             if (_a[0]) *reinterpret_cast< double*>(_a[0]) = std::move(_r); }  break;
+        case 35: _t->on_comboBox_existingParamSelec_currentTextChanged((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
+        case 36: _t->on_comboBox_existingParamSelec_currentIndexChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
         default: ;
         }
     }
@@ -343,13 +357,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 35)
+        if (_id < 37)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 35;
+        _id -= 37;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 35)
+        if (_id < 37)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 35;
+        _id -= 37;
     }
     return _id;
 }

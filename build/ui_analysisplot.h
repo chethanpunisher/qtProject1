@@ -11,6 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QComboBox>
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
@@ -31,6 +32,9 @@ public:
     QVBoxLayout *verticalLayout_7;
     QHBoxLayout *horizontalLayout_10;
     QVBoxLayout *verticalLayout_2;
+    QHBoxLayout *horizontalLayout_12;
+    QComboBox *comboBox_sampleSelec;
+    QComboBox *comboBox_batchSelec;
     QHBoxLayout *horizontalLayout_6;
     QLabel *SampleHeading;
     QLabel *sampleLabel;
@@ -110,6 +114,21 @@ public:
         horizontalLayout_10->setObjectName("horizontalLayout_10");
         verticalLayout_2 = new QVBoxLayout();
         verticalLayout_2->setObjectName("verticalLayout_2");
+        horizontalLayout_12 = new QHBoxLayout();
+        horizontalLayout_12->setObjectName("horizontalLayout_12");
+        comboBox_sampleSelec = new QComboBox(AnalysisPlot);
+        comboBox_sampleSelec->setObjectName("comboBox_sampleSelec");
+
+        horizontalLayout_12->addWidget(comboBox_sampleSelec);
+
+        comboBox_batchSelec = new QComboBox(AnalysisPlot);
+        comboBox_batchSelec->setObjectName("comboBox_batchSelec");
+
+        horizontalLayout_12->addWidget(comboBox_batchSelec);
+
+
+        verticalLayout_2->addLayout(horizontalLayout_12);
+
         horizontalLayout_6 = new QHBoxLayout();
         horizontalLayout_6->setObjectName("horizontalLayout_6");
         SampleHeading = new QLabel(AnalysisPlot);

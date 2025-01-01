@@ -17,6 +17,7 @@
 #include <QJsonArray>
 #include <QPair>
 #include <QFile>
+#include <QTimer>
 
 class ExcelLoader2;
 
@@ -46,6 +47,12 @@ private:
     int yMax,yMin;
     float f_xp;
     QString let;
+    QString tempEx;
+    int direction;       // -1 for left, +1 for right
+    double speed;      // Initial speed
+    double maxSpeed;   // Maximum speed
+    double acceleration;  // Acceleration
+    QTimer* timer;
     //MainWindow mainWindow;
     void setupChart();
     void setupUI();
@@ -53,6 +60,9 @@ private:
     QPair<QString, QString> readJsonFile(const QString &filePath);
 
 private slots:
+    void loadComboBox();
+    void populateComboBoxWithExcelFiles(const QString& folderPath);
+    QList<QJsonObject> listSamplesByAscendingIndex(JsonManager& jsonManager4);
     void startLoading(const QString &filePath);
     void updateProgress(int value);
     void onDataLoaded(QVector<QPointF> data, qreal yMin, qreal yMax);
@@ -60,6 +70,14 @@ private slots:
     void moveRight();
     void on_moveRightButton_clicked();
     void on_moveLeftButton_clicked();
+    void on_comboBox_sampleSelec_currentTextChanged(const QString &arg1);
+    void on_comboBox_batchSelec_currentTextChanged(const QString &arg1);
+    void timerUpdate();
+    void on_moveLeftButton_pressed();
+    void on_moveRightButton_pressed();
+    void on_moveLeftButton_released();
+    void on_moveRightButton_released();
+    void stopMovement();
 };
 
 

@@ -39,11 +39,16 @@ private slots:
 
     void on_calibrationUpButton_released();
 
+
+public slots:
+    void onCalSet(double calVal);
+
+
 private:
     Ui::calibrationWin *ui;
     SerialComm *serial;
     void writeSerial(const QString data1);
-    void generateJsonConfig(const QString &filePath, const QString &calibrationVal);
+    void generateJsonConfig(const QString &filePath, const double &calibrationVal);
     void readSerial(const QString &caliVal);
 };
 

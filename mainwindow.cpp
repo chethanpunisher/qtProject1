@@ -50,7 +50,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QTimer *timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &MainWindow::updateComPorts);
     timer->start(2000);  // Update every 100ms
-    connect(ui->comboBox_comPort, &QComboBox::currentIndexChanged, this, &MainWindow::onComboBoxIndexChanged);
+    //connect(ui->comboBox_comPort, &QComboBox::currentIndexChanged, this, &MainWindow::onComboBoxIndexChanged);
     connect(ui->comboBox_mode, &QComboBox::currentIndexChanged, this, &MainWindow::on_comboBox_mode_currentIndexChanged1);
     connectionMonitorTimer = new QTimer(this);
     loadLabelUpdate = new QTimer(this);
@@ -70,9 +70,10 @@ MainWindow::MainWindow(QWidget *parent) :
     mode = false;
     caseCount = 0;
     f_x = 0;
-
-
+    loadComboBox();
+    comboFlg = false;
     //xlsx = new QXlsx::Document(this);
+    graphFlg = false;
 }
 
 MainWindow::~MainWindow()
@@ -83,7 +84,7 @@ MainWindow::~MainWindow()
     //}
 
     //if (plotWindow)
-      //  delete plotWindow;
+    //  delete plotWindow;
     //qDebug() << "~MainWindow()";
     //delete ui;
 }
@@ -175,6 +176,22 @@ void MainWindow::on_pushButton_start_clicked()
             QString command;
 
             if(en){
+                if(comboFlg){
+                    // Save the Excel file to the selected path
+                    if (xlsx->saveAs(excFilePath)) {
+                        //QMessageBox::information(nullptr, "Success", "Excel file created successfully!");
+                    } else {
+                        QMessageBox::critical(nullptr, "Error", "Failed to create Excel file.");
+                    }
+                    comboFlg = false;
+                }
+
+
+                //QXlsx::Document xlsx(excFilePath);
+                excelHandler->loadExistingExcelFile(excFilePath);
+                excelInit();
+
+
                 ui->label_sampleName->setText(sN);
                 str1 = frq;
                 ui->label_frequency->setText(str1);
@@ -329,7 +346,21 @@ void MainWindow::on_pushButton_delete_clicked()
     }
 }
 
+bool MainWindow::isItemInComboBox(const QString& itemText) {
+    if (!ui->comboBox_existingParamSelec) {
+        qWarning() << "ComboBox is null!";
+        return false;
+    }
 
+    // Iterate through all items in the combo box
+    for (int i = 0; i < ui->comboBox_existingParamSelec->count(); ++i) {
+        if (ui->comboBox_existingParamSelec->itemText(i) == itemText) {
+            return true;  // Item found
+        }
+    }
+
+    return false;  // Item not found
+}
 
 void MainWindow::parameters(int index){
     sindex = index;
@@ -343,21 +374,26 @@ void MainWindow::parameters(int index){
     modAmp = QString::number(jsonObject1.value("amplitude").toDouble()/1000);
     modSp = QString::number(jsonObject1.value("setPoint").toDouble()/1000);
     en = true;
-    excFilePath = jsonObject1.value("excelFilePath").toString() + "/" + getBatchString(jsonObject1.value("excX").toInt()) + ".xlsx";
+    QPair<QString, QString> dateTime = getCurrentDateAndTime();
+    QDateTime currentDateTime = QDateTime::currentDateTime();
+    excFilePath = jsonObject1.value("excelFilePath").toString() + "/" + currentDateTime.date().toString("yyyy-MM-dd") + " , "+currentDateTime.time().toString("hh-mm") + ".xlsx";//getBatchString(jsonObject1.value("excX").toInt()) +// ".xlsx";
     //excSaveFlag = operation.excelSaveFlg;
     qDebug()<<jsonObject1.value("excX");
     qDebug()<<"sN : "<<sN;
     qDebug()<<"frq : "<<frq;
-    qDebug()<<"amp : "<<amp;
-    qDebug()<<"sP : "<<sP;
+    qDebug()<<"amp : "<<modAmp;
+    qDebug()<<"sP : "<<modSp;
     qDebug()<<"sC : "<<sC;
+    qDebug()<<"excel name : "<<excFilePath;
     x = 0;
     f_x = 0;
     columnCount = 0;
 
-    //QXlsx::Document xlsx(excFilePath);
-    excelHandler->loadExistingExcelFile(excFilePath);
-    excelInit();
+    if(!isItemInComboBox(sN)){
+        qDebug()<<"insert triggered";
+        ui->comboBox_existingParamSelec->addItem(sN);
+    }
+    comboFlg = true;
     /*if (!xlsx.load()) {
         qDebug() << "Failed to load Excel file:";
         return;
@@ -370,6 +406,7 @@ void MainWindow::parameters(int index){
 
 void MainWindow::on_pushButton_parameters_clicked()
 {
+    //comboFlg = false;
     int test = jsonManager.getSampleWithHighestIndex();
     qDebug()<<test;
     opFlg = true;
@@ -463,6 +500,7 @@ void MainWindow::on_pushButton_clicked()
                 command = "set mode " + str1 + "\n";
                 writeSerial(command);
                 cw = new calibrationWin(this, serialComm);
+                connect(dataParser, &DataParser::calParsed, cw, &calibrationWin::onCalSet);
                 cw->setAttribute(Qt::WA_DeleteOnClose);
                 cw->show();
             } else {
@@ -638,8 +676,9 @@ void MainWindow::on_pushButton_comConnect_clicked()
         portFlg = true;
         return;
     }
-
-    QString selectedPort = ui->comboBox_comPort->currentText();
+    QString configFilePath = "config.json";
+    readComFromJson(configFilePath);
+    QString selectedPort = comPortName;//ui->comboBox_comPort->currentText();
     if (selectedPort.isEmpty())
     {
         QMessageBox::warning(this, tr("Error"), tr("No serial port selected!"));
@@ -654,7 +693,7 @@ void MainWindow::on_pushButton_comConnect_clicked()
         ui->label_portStatus->setText("Active");
         //deviceState |= COM_CONFIG;
         comConfig = true;
-        QString configFilePath = "config.json";
+        QThread::sleep(1);
         readJsonConfig(configFilePath);
         ui->label_portStatus->setStyleSheet("color : green");
         QMessageBox::information(this, "Error","Connected to " + selectedPort);
@@ -707,20 +746,48 @@ void MainWindow::readJsonConfig(const QString &filePath) {
 
     // Print the contents to the console
     qDebug() << "Configuration Settings:";
-    qDebug() << "App Name:" << configObject["calibration"].toString();
-
+    qDebug() << "App Name:" << configObject["calibration"].toDouble();
+    qDebug() << "com port: " << configObject["comPort"].toString();
     QJsonObject databaseConfig = configObject["database"].toObject();
     qDebug() << "Database Username:" << databaseConfig["username"].toString();
     qDebug() << "Database Password:" << databaseConfig["password"].toString();
-
+    comPortName = configObject["comPort"].toString();
     QString command;
     QString str1 = "1";
     command = "set scale " + str1 + "\n";
     //writeSerial(command);
-    str1 = configObject["calibration"].toString();
+    str1 = QString::number(configObject["calibration"].toDouble());
     command = "calibrate manually " + str1 + "\n";
     writeSerial(command);
     //return configObject["calibration"].toString();
+}
+
+void MainWindow::readComFromJson(const QString &filePath) {
+    // Read the JSON configuration file
+    QFile jsonFile(filePath);
+    if (!jsonFile.open(QIODevice::ReadOnly)) {
+        QMessageBox::warning(nullptr, "Input Error", "Please calibrate the scale");
+        return;
+    }
+
+    // Read all the content from the file
+    QByteArray jsonData = jsonFile.readAll();
+    jsonFile.close();
+
+    // Parse the JSON document
+    QJsonDocument jsonDoc = QJsonDocument::fromJson(jsonData);
+    if (jsonDoc.isNull()) {
+        qWarning("Failed to parse the file as a JSON document.");
+        return;
+    }
+
+    // Extract the JSON object
+    QJsonObject configObject = jsonDoc.object();
+
+    // Print the contents to the console
+    qDebug() << "Configuration Settings:";
+    qDebug() << "com port: " << configObject["comPort"].toString();
+    comPortName = configObject["comPort"].toString();
 }
 
 void MainWindow::on_pushButton_up_pressed()
@@ -1110,7 +1177,7 @@ void MainWindow::updateLoadValue(int modeNumber, double loadValue){
         else{
             //qDebug() << x << " ," << yValue;   // Print values for debugging - ne
             excelWrite(x, preVx);
-            //ser->append(f_x, preV);
+            ser->append(f_x, preV);
         }
         ser->append(f_x, loadValue/1000);
         //qDebug() << x << " ," << yValue;   // Print values for debugging
@@ -1217,3 +1284,59 @@ double MainWindow::updateWave(){
     double y = ampl + (setpoint * std::sin(2 * M_PI * frq.toInt() * f_x));
     return y;
 }
+
+void MainWindow::on_comboBox_existingParamSelec_currentTextChanged(const QString &arg1)
+{
+
+}
+
+void MainWindow::loadComboBox(){
+    // Get samples sorted by ascending index
+    QList<QJsonObject> sortedSamples = listSamplesByAscendingIndex(jsonManager);
+    for (const QJsonObject& sample : sortedSamples) {
+        QString sampleName = sample.value("sampleName").toString();
+        int index = sample.value("index").toInt();
+        qDebug() << "Sample Name:" << sampleName << "Index:" << index;
+        // ui->recentOperationsListWidget->addItem(sampleName);
+        ui->comboBox_existingParamSelec->addItem(sampleName, index);
+
+    }
+    // populateComboBoxWithExcelFiles("E:/excelTest/sampleEsp");
+}
+
+// Function to list sample parameters by ascending index
+QList<QJsonObject> MainWindow::listSamplesByAscendingIndex(JsonManager& jsonManager4) {
+    // Retrieve all samples from JsonManager
+    QJsonArray samplesArray = jsonManager4.getAllSamples();
+
+    // Convert QJsonArray to QList<QJsonObject> for easier sorting
+    QList<QJsonObject> samplesList;
+    for (const QJsonValue& sampleValue : samplesArray) {
+        samplesList.append(sampleValue.toObject());
+    }
+
+    // Sort samplesList by the "index" field in ascending order
+    std::sort(samplesList.begin(), samplesList.end(), [](const QJsonObject& a, const QJsonObject& b) {
+        return a.value("index").toInt() < b.value("index").toInt();
+    });
+
+
+    return samplesList;
+}
+
+
+void MainWindow::on_comboBox_existingParamSelec_currentIndexChanged(int index)
+{
+    qDebug()<<index;
+    x = 0;
+    QJsonObject samples = jsonManager.loadParametersByIndex(index);
+
+    if(!samples.empty()){
+        int tempX = samples.value("excX").toInt();
+        QString tempStr = samples.value("sampleName").toString();
+        jsonManager.updateParameter(tempStr, "excX", tempX + 1);
+    }
+    parameters(index);
+    comboFlg = true;
+}
+

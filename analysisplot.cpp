@@ -12,6 +12,7 @@
 #include <QFormLayout>
 #include <QLabel>
 
+// Movement variables
 
 
 QString jsonFilePath3 = "sampleData.json";
@@ -85,22 +86,30 @@ AnalysisPlot::AnalysisPlot(QWidget *parent)
     ui->setupUi(this);
 
     // Load the Excel file
-    QString filePath = QFileDialog::getOpenFileName(this,
-                                                    "Open Excel File",
-                                                    QDir::homePath(),
-                                                    "Excel Files (*.xlsx)");
-    let = extractSample(filePath);
+    // QString filePath = QFileDialog::getOpenFileName(this,
+    //                                                 "Open Excel File",
+    //                                                 QDir::homePath(),
+    //                                                 "Excel Files (*.xlsx)");
+    // let = extractSample(filePath);
     qDebug()<<let;
     resize(800, 600); // Set the initial size of the PlotWindow to 800x600
 
     setupUI();
     setupChart();
-    if (!filePath.isEmpty()) {
-        startLoading(filePath);
-    } else {
-        QMessageBox::warning(this, "Cancelled", "File open operation was cancelled.");
-    }
-
+    // if (!filePath.isEmpty()) {
+    //     startLoading(filePath);
+    // } else {
+    //     QMessageBox::warning(this, "Cancelled", "File open operation was cancelled.");
+    // }
+    loadComboBox();
+    // Timer for smooth movement
+    timer = new QTimer(this);
+    QObject::connect(timer, &QTimer::timeout, this, &AnalysisPlot::timerUpdate);
+    // Movement variables
+    direction = 0;       // -1 for left, +1 for right
+    speed = 0.1;      // Initial speed
+    maxSpeed = 2.0;   // Maximum speed
+    acceleration = 0.05;  // Acceleration
 }
 
 AnalysisPlot::~AnalysisPlot()
@@ -179,6 +188,70 @@ void AnalysisPlot::startLoading(const QString &filePath)
     thread->start();
 }
 
+void AnalysisPlot::loadComboBox(){
+    // Get samples sorted by ascending index
+    QList<QJsonObject> sortedSamples = listSamplesByAscendingIndex(jsonManager3);
+    for (const QJsonObject& sample : sortedSamples) {
+        QString sampleName = sample.value("sampleName").toString();
+        int index = sample.value("index").toInt();
+        qDebug() << "Sample Name:" << sampleName << "Index:" << index;
+        // ui->recentOperationsListWidget->addItem(sampleName);
+        ui->comboBox_sampleSelec->addItem(sampleName, index);
+
+    }
+    // populateComboBoxWithExcelFiles("E:/excelTest/sampleEsp");
+}
+
+// Function to list sample parameters by ascending index
+QList<QJsonObject> AnalysisPlot::listSamplesByAscendingIndex(JsonManager& jsonManager4) {
+    // Retrieve all samples from JsonManager
+    QJsonArray samplesArray = jsonManager4.getAllSamples();
+
+    // Convert QJsonArray to QList<QJsonObject> for easier sorting
+    QList<QJsonObject> samplesList;
+    for (const QJsonValue& sampleValue : samplesArray) {
+        samplesList.append(sampleValue.toObject());
+    }
+
+    // Sort samplesList by the "index" field in ascending order
+    std::sort(samplesList.begin(), samplesList.end(), [](const QJsonObject& a, const QJsonObject& b) {
+        return a.value("index").toInt() < b.value("index").toInt();
+    });
+
+
+    return samplesList;
+}
+
+void AnalysisPlot::populateComboBoxWithExcelFiles(const QString& folderPath) {
+    // Set up the directory
+    QDir dir(folderPath);
+
+    // Filter for Excel files
+    QStringList filters;
+    filters << "*.xls" << "*.xlsx";  // Add more extensions if needed
+    dir.setNameFilters(filters);
+
+    // Get the list of files
+    QStringList excelFiles = dir.entryList(QDir::Files);
+
+    // Clear existing items in the comboBox (optional)
+    // comboBox->clear();
+    ui->comboBox_batchSelec->clear();
+
+    // Populate the comboBox with file names
+    for (const QString& fileName : excelFiles) {
+        // comboBox->addItem(fileName);  // Add the file name
+        ui->comboBox_batchSelec->addItem(fileName);
+    }
+
+    // Debug information
+    if (excelFiles.isEmpty()) {
+        qWarning() << "No Excel files found in directory:" << folderPath;
+    } else {
+        qDebug() << "Excel files found:" << excelFiles;
+    }
+}
+
 void AnalysisPlot::updateProgress(int value)
 {
     progressBar->setValue(value);
@@ -187,9 +260,9 @@ void AnalysisPlot::updateProgress(int value)
 void AnalysisPlot::onDataLoaded(QVector<QPointF> data, qreal yMin, qreal yMax)
 {
     series->replace(data);
-    axisX->setRange(data.first().x(), data.last().x() - (data.last().x() - 5));
-    axisY->setRange(0, ui->AmplitudeLabel->text().toDouble() + ui->setPointLabel->text().toDouble());
-
+    axisX->setRange(0, 5);//data.first().x(), data.last().x() - (data.last().x() - 5));
+    axisY->setRange(0, yMax);
+    qDebug()<<yMin<<", "<<yMax;
     progressBar->setVisible(false);
 }
 
@@ -221,15 +294,15 @@ QString AnalysisPlot::extractSample(const QString &input) {
 
 void AnalysisPlot::on_moveRightButton_clicked()
 {
-    qreal step = (axisX->max() - axisX->min()) * 1;
-    axisX->setRange(axisX->min() + step, axisX->max() + step);
+    // qreal step = (axisX->max() - axisX->min()) * 1;
+    // axisX->setRange(axisX->min() + step, axisX->max() + step);
 }
 
 
 void AnalysisPlot::on_moveLeftButton_clicked()
 {
-    qreal step = (axisX->max() - axisX->min()) * 1;
-    axisX->setRange(axisX->min() - step, axisX->max() - step);
+    // qreal step = (axisX->max() - axisX->min()) * 1;
+    // axisX->setRange(axisX->min() - step, axisX->max() - step);
 }
 
 QPair<QString, QString> AnalysisPlot::readJsonFile(const QString &filePath) {
@@ -254,4 +327,89 @@ QPair<QString, QString> AnalysisPlot::readJsonFile(const QString &filePath) {
     QString address = jsonObj.value("Address").toString();
 
     return QPair<QString, QString>(name, address);
+}
+
+void AnalysisPlot::on_comboBox_sampleSelec_currentTextChanged(const QString &arg1)
+{
+    qDebug()<<arg1;
+    QJsonObject sampleDis = jsonManager3.readParameters(arg1);
+
+    if(1){
+
+        ui->sampleLabel->setText(sampleDis.value("sampleName").toString());
+        ui->frequencyLabel->setText(QString::number(sampleDis.value("frequency").toDouble()));
+        ui->AmplitudeLabel->setText(QString::number(sampleDis.value("setPoint").toDouble()/1000));
+        ui->setPointLabel->setText(QString::number(sampleDis.value("amplitude").toDouble()/1000));
+        ui->stopCycleLabel->setText(QString::number(sampleDis.value("stopCycle").toDouble()));
+        ui->startTimeLabel->setText(sampleDis.value("startTime").toString());
+        ui->stopTimeLabel->setText(sampleDis.value("endTime").toString());
+        ui->startDateLabel->setText(sampleDis.value("startDate").toString());
+        ui->endDateLabel->setText(sampleDis.value("endDate").toString());
+
+        tempEx = sampleDis.value("excelFilePath").toString();
+        qDebug()<<tempEx;
+        populateComboBoxWithExcelFiles(tempEx);
+
+
+    }
+}
+
+void AnalysisPlot::on_comboBox_batchSelec_currentTextChanged(const QString &arg1)
+{
+
+    QString tempEx2 = tempEx+ "/" +arg1;
+    qDebug()<<tempEx2;
+    if (!tempEx2.isEmpty()) {
+        startLoading(tempEx2);
+    } else {
+        QMessageBox::warning(this, "Cancelled", "File open operation was cancelled.");
+    }
+}
+
+void AnalysisPlot::timerUpdate(){
+    qDebug()<<"moving";
+    if (direction != 0) {
+
+        double start = axisX->min() + direction * speed;
+        double end = axisX->max() + direction * speed;
+        axisX->setRange(start, end);
+    }
+    if (speed < maxSpeed) {
+        speed += acceleration;  // Increase speed linearly
+    }
+}
+
+
+
+void AnalysisPlot::on_moveLeftButton_pressed()
+{
+    qDebug()<<"left pressed";
+    direction = -1;  // Move left
+    speed = 0.1;     // Reset speed
+    timer->start(20);  // Start moving (20 ms interval)
+}
+
+
+void AnalysisPlot::on_moveRightButton_pressed()
+{
+    direction = 1;   // Move right
+    speed = 0.1;     // Reset speed
+    timer->start(20);  // Start moving (20 ms interval)
+}
+
+
+void AnalysisPlot::on_moveLeftButton_released()
+{
+    stopMovement();
+}
+
+
+void AnalysisPlot::on_moveRightButton_released()
+{
+    stopMovement();
+}
+
+void AnalysisPlot::stopMovement(){
+    timer->stop();
+    direction = 0;  // Stop moving
 }

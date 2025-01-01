@@ -37,8 +37,15 @@ namespace {
 struct qt_meta_stringdata_CLASSAnalysisPlotENDCLASS_t {};
 constexpr auto qt_meta_stringdata_CLASSAnalysisPlotENDCLASS = QtMocHelpers::stringData(
     "AnalysisPlot",
-    "startLoading",
+    "loadComboBox",
     "",
+    "populateComboBoxWithExcelFiles",
+    "folderPath",
+    "listSamplesByAscendingIndex",
+    "QList<QJsonObject>",
+    "JsonManager&",
+    "jsonManager4",
+    "startLoading",
     "filePath",
     "updateProgress",
     "value",
@@ -50,7 +57,16 @@ constexpr auto qt_meta_stringdata_CLASSAnalysisPlotENDCLASS = QtMocHelpers::stri
     "moveLeft",
     "moveRight",
     "on_moveRightButton_clicked",
-    "on_moveLeftButton_clicked"
+    "on_moveLeftButton_clicked",
+    "on_comboBox_sampleSelec_currentTextChanged",
+    "arg1",
+    "on_comboBox_batchSelec_currentTextChanged",
+    "timerUpdate",
+    "on_moveLeftButton_pressed",
+    "on_moveRightButton_pressed",
+    "on_moveLeftButton_released",
+    "on_moveRightButton_released",
+    "stopMovement"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -63,7 +79,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSAnalysisPlotENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-       7,   14, // methods
+      18,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -71,18 +87,40 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSAnalysisPlotENDCLASS[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    1,   56,    2, 0x08,    1 /* Private */,
-       4,    1,   59,    2, 0x08,    3 /* Private */,
-       6,    3,   62,    2, 0x08,    5 /* Private */,
-      11,    0,   69,    2, 0x08,    9 /* Private */,
-      12,    0,   70,    2, 0x08,   10 /* Private */,
-      13,    0,   71,    2, 0x08,   11 /* Private */,
-      14,    0,   72,    2, 0x08,   12 /* Private */,
+       1,    0,  122,    2, 0x08,    1 /* Private */,
+       3,    1,  123,    2, 0x08,    2 /* Private */,
+       5,    1,  126,    2, 0x08,    4 /* Private */,
+       9,    1,  129,    2, 0x08,    6 /* Private */,
+      11,    1,  132,    2, 0x08,    8 /* Private */,
+      13,    3,  135,    2, 0x08,   10 /* Private */,
+      18,    0,  142,    2, 0x08,   14 /* Private */,
+      19,    0,  143,    2, 0x08,   15 /* Private */,
+      20,    0,  144,    2, 0x08,   16 /* Private */,
+      21,    0,  145,    2, 0x08,   17 /* Private */,
+      22,    1,  146,    2, 0x08,   18 /* Private */,
+      24,    1,  149,    2, 0x08,   20 /* Private */,
+      25,    0,  152,    2, 0x08,   22 /* Private */,
+      26,    0,  153,    2, 0x08,   23 /* Private */,
+      27,    0,  154,    2, 0x08,   24 /* Private */,
+      28,    0,  155,    2, 0x08,   25 /* Private */,
+      29,    0,  156,    2, 0x08,   26 /* Private */,
+      30,    0,  157,    2, 0x08,   27 /* Private */,
 
  // slots: parameters
-    QMetaType::Void, QMetaType::QString,    3,
-    QMetaType::Void, QMetaType::Int,    5,
-    QMetaType::Void, 0x80000000 | 7, QMetaType::QReal, QMetaType::QReal,    8,    9,   10,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::QString,    4,
+    0x80000000 | 6, 0x80000000 | 7,    8,
+    QMetaType::Void, QMetaType::QString,   10,
+    QMetaType::Void, QMetaType::Int,   12,
+    QMetaType::Void, 0x80000000 | 14, QMetaType::QReal, QMetaType::QReal,   15,   16,   17,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::QString,   23,
+    QMetaType::Void, QMetaType::QString,   23,
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -100,6 +138,14 @@ Q_CONSTINIT const QMetaObject AnalysisPlot::staticMetaObject = { {
     qt_incomplete_metaTypeArray<qt_meta_stringdata_CLASSAnalysisPlotENDCLASS_t,
         // Q_OBJECT / Q_GADGET
         QtPrivate::TypeAndForceComplete<AnalysisPlot, std::true_type>,
+        // method 'loadComboBox'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'populateComboBoxWithExcelFiles'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const QString &, std::false_type>,
+        // method 'listSamplesByAscendingIndex'
+        QtPrivate::TypeAndForceComplete<QList<QJsonObject>, std::false_type>,
+        QtPrivate::TypeAndForceComplete<JsonManager &, std::false_type>,
         // method 'startLoading'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<const QString &, std::false_type>,
@@ -118,6 +164,24 @@ Q_CONSTINIT const QMetaObject AnalysisPlot::staticMetaObject = { {
         // method 'on_moveRightButton_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_moveLeftButton_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_comboBox_sampleSelec_currentTextChanged'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const QString &, std::false_type>,
+        // method 'on_comboBox_batchSelec_currentTextChanged'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const QString &, std::false_type>,
+        // method 'timerUpdate'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_moveLeftButton_pressed'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_moveRightButton_pressed'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_moveLeftButton_released'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_moveRightButton_released'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'stopMovement'
         QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
@@ -129,19 +193,31 @@ void AnalysisPlot::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         auto *_t = static_cast<AnalysisPlot *>(_o);
         (void)_t;
         switch (_id) {
-        case 0: _t->startLoading((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
-        case 1: _t->updateProgress((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 2: _t->onDataLoaded((*reinterpret_cast< std::add_pointer_t<QList<QPointF>>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<qreal>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<qreal>>(_a[3]))); break;
-        case 3: _t->moveLeft(); break;
-        case 4: _t->moveRight(); break;
-        case 5: _t->on_moveRightButton_clicked(); break;
-        case 6: _t->on_moveLeftButton_clicked(); break;
+        case 0: _t->loadComboBox(); break;
+        case 1: _t->populateComboBoxWithExcelFiles((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
+        case 2: { QList<QJsonObject> _r = _t->listSamplesByAscendingIndex((*reinterpret_cast< std::add_pointer_t<JsonManager&>>(_a[1])));
+            if (_a[0]) *reinterpret_cast< QList<QJsonObject>*>(_a[0]) = std::move(_r); }  break;
+        case 3: _t->startLoading((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
+        case 4: _t->updateProgress((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 5: _t->onDataLoaded((*reinterpret_cast< std::add_pointer_t<QList<QPointF>>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<qreal>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<qreal>>(_a[3]))); break;
+        case 6: _t->moveLeft(); break;
+        case 7: _t->moveRight(); break;
+        case 8: _t->on_moveRightButton_clicked(); break;
+        case 9: _t->on_moveLeftButton_clicked(); break;
+        case 10: _t->on_comboBox_sampleSelec_currentTextChanged((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
+        case 11: _t->on_comboBox_batchSelec_currentTextChanged((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
+        case 12: _t->timerUpdate(); break;
+        case 13: _t->on_moveLeftButton_pressed(); break;
+        case 14: _t->on_moveRightButton_pressed(); break;
+        case 15: _t->on_moveLeftButton_released(); break;
+        case 16: _t->on_moveRightButton_released(); break;
+        case 17: _t->stopMovement(); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
         switch (_id) {
         default: *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType(); break;
-        case 2:
+        case 5:
             switch (*reinterpret_cast<int*>(_a[1])) {
             default: *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType(); break;
             case 0:
@@ -171,13 +247,13 @@ int AnalysisPlot::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 7)
+        if (_id < 18)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 7;
+        _id -= 18;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 7)
+        if (_id < 18)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 7;
+        _id -= 18;
     }
     return _id;
 }

@@ -13,6 +13,7 @@ public:
 signals:
     void loadDataParsed(int modeNumber, double loadValue);  // Signal to send load value along with mode number
     void cycleCountParsed(int cycleCount);                  // Signal to send cycle count
+    void calParsed(double calVal);
 
 public slots:
     void parseData(const QString& rawData);  // Slot to parse incoming data

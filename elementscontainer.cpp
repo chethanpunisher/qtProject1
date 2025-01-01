@@ -198,14 +198,14 @@ void elementsContainer::saveExcel(){
         }
         //excelFilePath = filePath;
         // Save the Excel file to the selected path
-        if (xlsx.saveAs(filePath)) {
-            QMessageBox::information(nullptr, "Success", "Excel file created successfully!");
-            excelSaveFlg = true;
-            //x = x+1;
-        } else {
-            QMessageBox::critical(nullptr, "Error", "Failed to create Excel file.");
-            excelSaveFlg = false;
-        }
+        // if (xlsx.saveAs(filePath)) {
+        //     QMessageBox::information(nullptr, "Success", "Excel file created successfully!");
+        //     excelSaveFlg = true;
+        //     //x = x+1;
+        // } else {
+        //     QMessageBox::critical(nullptr, "Error", "Failed to create Excel file.");
+        //     excelSaveFlg = false;
+        // }
     } else {
         x = x+1;
         QString filePath = excelFilePath + "/" + getBatchString(x);
@@ -216,11 +216,11 @@ void elementsContainer::saveExcel(){
         //excelFilePath = filePath;
 
         // Save the Excel file to the selected path
-        if (xlsx.saveAs(filePath)) {
-            QMessageBox::information(nullptr, "Success", "Excel file created successfully!");
-        } else {
-            QMessageBox::critical(nullptr, "Error", "Failed to create Excel file.");
-        }
+        // if (xlsx.saveAs(filePath)) {
+        //     QMessageBox::information(nullptr, "Success", "Excel file created successfully!");
+        // } else {
+        //     QMessageBox::critical(nullptr, "Error", "Failed to create Excel file.");
+        // }
     }
 }
 
