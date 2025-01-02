@@ -33,6 +33,7 @@
 #include "analysisplot.h"
 #include <QPair>
 #include <QDialog>
+#include "qcustomplot.h"
 
 class WelcomeDialog;
 
@@ -75,8 +76,6 @@ private slots:
     void on_pushButton_parameters_clicked();
 
     void on_pushButton_save_clicked();
-
-    void on_pushButton_clicked();
 
     void updateComPorts();
 
@@ -127,6 +126,8 @@ private slots:
 
     void on_comboBox_existingParamSelec_currentIndexChanged(int index);
 
+    void on_pushButton_calibra_clicked();
+
 private:
     void initUI();
     void serialInit(QString port);
@@ -148,6 +149,7 @@ private:
     void loadComboBox();
     QList<QJsonObject> listSamplesByAscendingIndex(JsonManager& jsonManager4);
     bool isItemInComboBox(const QString& itemText);
+    void writeToLoadCellPlot(double x, int y);
     PlotWindow *plotWindow;
     AnalysisPlot *analysisPlot;
     elementsContainer* ec;
@@ -207,6 +209,7 @@ private:
     QString comPortName;
     bool comboFlg;
     bool graphFlg;
+    //QCustomPlot *customPlot;
 };
 
 class WelcomeDialog : public QDialog {

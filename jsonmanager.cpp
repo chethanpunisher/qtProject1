@@ -5,6 +5,7 @@
 #include <QJsonObject>
 #include <QJsonValue>
 #include <QDebug>
+#include <QDir>
 
 JsonManager::JsonManager(const QString& filePath, QObject* parent) : QObject(parent), filePath(filePath) {}
 
@@ -244,3 +245,61 @@ bool JsonManager::addParameter(const QString& sampleName, const QString& paramet
     // Save the updated document back to the file
     return saveJsonDocument(doc);
 }
+
+
+// Deletes a sample by its name, removes its associated folder, and reorders the indices
+bool JsonManager::deleteSample(const QString& sampleName) {
+    QJsonDocument doc = loadJsonDocument();
+    QJsonObject rootObj = doc.object();
+    QJsonArray samples = rootObj.value("samples").toArray();
+
+    bool sampleFound = false;
+    QString folderToDelete;
+
+    // Find and remove the sample by its name
+    for (int i = 0; i < samples.size(); ++i) {
+        QJsonObject sampleObj = samples[i].toObject();
+        if (sampleObj.value("sampleName").toString() == sampleName) {
+            // Save the folder path for deletion
+            folderToDelete = sampleObj.value("excelFilePath").toString();
+
+            // Remove the sample
+            samples.removeAt(i);
+            sampleFound = true;
+            break;
+        }
+    }
+
+    if (!sampleFound) {
+        qWarning() << "Sample with name" << sampleName << "not found for deletion.";
+        return false;
+    }
+
+    // Delete the folder if it exists
+    if (!folderToDelete.isEmpty()) {
+        QDir dir(folderToDelete);
+        if (dir.exists()) {
+            if (!dir.removeRecursively()) {
+                qWarning() << "Failed to delete folder at" << folderToDelete;
+            } else {
+                qDebug() << "Folder at" << folderToDelete << "deleted successfully.";
+            }
+        } else {
+            qWarning() << "Folder at" << folderToDelete << "does not exist.";
+        }
+    }
+
+    // Reorder indices for the remaining samples
+    for (int i = 0; i < samples.size(); ++i) {
+        QJsonObject sampleObj = samples[i].toObject();
+        sampleObj["index"] = i;  // Update index
+        samples[i] = sampleObj; // Save updated sample
+    }
+
+    rootObj["samples"] = samples; // Update the root object
+    doc.setObject(rootObj);
+
+    // Save the updated document back to the file
+    return saveJsonDocument(doc);
+}
+

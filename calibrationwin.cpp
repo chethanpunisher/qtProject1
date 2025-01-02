@@ -15,66 +15,6 @@ calibrationWin::~calibrationWin()
     delete ui;
 }
 
-void calibrationWin::on_pushButton_clicked()
-{
-    QMessageBox::StandardButton ins1;
-    ins1 = QMessageBox::question(this, "calibration", "Remove weight on the scale",
-                                  QMessageBox::Yes | QMessageBox::No);
-    if(ins1){
-        qDebug() << "Serial port opened successfully.";
-
-        // Transmit the "hi" string
-        QString str1;
-        QString command;
-        str1 = "1";
-        command = "set scale " + str1 + "\n";
-        //writeSerial(command);
-
-        // Ensure all data is written before closing the port
-        if (serial->writeToSerial(command)) {
-            qDebug() << "Message sent: " << command;
-            QMessageBox::information(nullptr, "Success", "Calibration sent successfully!");
-        } else {
-            qDebug() << "Failed to send message.";
-        }
-    }
-
-    QMessageBox::StandardButton ins2;
-    ins2 = QMessageBox::question(this, "calibration", "Now place the reference weight on the scale",
-                                  QMessageBox::Yes | QMessageBox::No);
-
-    if(ins1 && ins2){
-        qDebug() << "Serial port opened successfully.";
-
-        // Transmit the "hi" string
-        QString str1;
-        QString command;
-        str1 = ui->lineEdit_calibrationIput->text();
-        command = "set cali " + str1 + "\n";
-        //writeSerial(command);
-
-        // Ensure all data is written before closing the port
-        if (serial->writeToSerial(command)) {
-            qDebug() << "Message sent: " << command;
-            //QString cali = serial->readFromSerial();
-            //qDebug()<<cali;
-            QMessageBox::information(nullptr, "Success", "Calibration sent successfully!");
-
-
-        } else {
-            qDebug() << "Failed to send message.";
-        }
-        str1;
-        command;
-        str1 = "0";
-        command = "set mode " + str1 + "\n";
-        if (serial->writeToSerial(command)) {
-
-        } else {
-            qDebug() << "Failed to send message.";
-        }
-    }
-}
 
 void calibrationWin::onCalSet(double calVal){
     QString configFilePath = "config.json";
@@ -223,5 +163,67 @@ void calibrationWin::on_calibrationUpButton_released()
     str1 = "3";
     command = "set mode " + str1 + "\n";
     writeSerial(command);
+}
+
+
+void calibrationWin::on_pushButton_calibrate_clicked()
+{
+    QMessageBox::StandardButton ins1;
+    ins1 = QMessageBox::question(this, "calibration", "Remove weight on the scale",
+                                 QMessageBox::Yes | QMessageBox::No);
+    if(ins1){
+        qDebug() << "Serial port opened successfully.";
+
+        // Transmit the "hi" string
+        QString str1;
+        QString command;
+        str1 = "1";
+        command = "set scale " + str1 + "\n";
+        //writeSerial(command);
+
+        // Ensure all data is written before closing the port
+        if (serial->writeToSerial(command)) {
+            qDebug() << "Message sent: " << command;
+            QMessageBox::information(nullptr, "Success", "Calibration sent successfully!");
+        } else {
+            qDebug() << "Failed to send message.";
+        }
+    }
+
+    QMessageBox::StandardButton ins2;
+    ins2 = QMessageBox::question(this, "calibration", "Now place the reference weight on the scale",
+                                 QMessageBox::Yes | QMessageBox::No);
+
+    if(ins1 && ins2){
+        qDebug() << "Serial port opened successfully.";
+
+        // Transmit the "hi" string
+        QString str1;
+        QString command;
+        str1 = ui->lineEdit_calibrationIput->text();
+        command = "set cali " + str1 + "\n";
+        //writeSerial(command);
+
+        // Ensure all data is written before closing the port
+        if (serial->writeToSerial(command)) {
+            qDebug() << "Message sent: " << command;
+            //QString cali = serial->readFromSerial();
+            //qDebug()<<cali;
+            QMessageBox::information(nullptr, "Success", "Calibration sent successfully!");
+
+
+        } else {
+            qDebug() << "Failed to send message.";
+        }
+        str1;
+        command;
+        str1 = "0";
+        command = "set mode " + str1 + "\n";
+        if (serial->writeToSerial(command)) {
+
+        } else {
+            qDebug() << "Failed to send message.";
+        }
+    }
 }
 

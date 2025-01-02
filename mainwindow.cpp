@@ -62,6 +62,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(serialComm, &SerialComm::errorOccurred, this, &MainWindow::onSerialPortError);
     connect(dataParser, &DataParser::loadDataParsed, this, &MainWindow::updateLoadValue);
     connect(dataParser, &DataParser::cycleCountParsed, this, &MainWindow::updateCycleCount);
+
     columnCount = 0;
     updateComPorts();
     exFlg = false;
@@ -111,12 +112,30 @@ void MainWindow::initUI()
     updateAxis();
 
     series[0]->setColor(QColor(255, 128, 0));
+
+
 }
 
 void MainWindow::updateAxis()
 {
     chart->axisX()->setRange(0, 5);
     chart->axisY()->setRange(-250, 250);  // Sine wave typically ranges between -1 and 1
+}
+
+void MainWindow::writeToLoadCellPlot(double x, int y){
+    // series2->append(x, y);
+    // if (x > 10.0) {
+    //     series2->remove(0); // Remove the first point
+    // }
+    // xAxis2->setRange(x > 5.0 ? x - 5.0 : 0.0, x);
+
+    // Append new data point to the graph
+    // customPlot->graph(0)->addData(x, y);
+    // customPlot->graph(0)->rescaleValueAxis(true);
+    // customPlot->xAxis->setRange(x, 8, Qt::AlignCenter);
+    // customPlot->replot();
+
+
 }
 
 void MainWindow::updateSineWave()
@@ -323,26 +342,60 @@ void MainWindow::on_pushButton_stop_clicked()
 
 void MainWindow::on_pushButton_delete_clicked()
 {
-    QString filePath = QFileDialog::getOpenFileName(this,
-                                                    "Open Excel File",
-                                                    QDir::homePath(),
-                                                    "Excel Files (*.xlsx)");
+    // QString filePath = QFileDialog::getOpenFileName(this,
+    //                                                 "Open Excel File",
+    //                                                 QDir::homePath(),
+    //                                                 "Excel Files (*.xlsx)");
 
-    // Create a QFile object
-    QFile file(filePath);
+    // // Create a QFile object
+    // QFile file(filePath);
 
-    // Check if the file exists
-    if (file.exists()) {
-        // Attempt to remove the file
-        if (file.remove()) {
-            //qDebug() << "File deleted successfully.";
-            QMessageBox::information(nullptr, "Success", "Excel file deleted successfully!");
+    // // Check if the file exists
+    // if (file.exists()) {
+    //     // Attempt to remove the file
+    //     if (file.remove()) {
+    //         //qDebug() << "File deleted successfully.";
+    //         QMessageBox::information(nullptr, "Success", "Excel file deleted successfully!");
+    //     } else {
+    //         //qDebug() << "Failed to delete the file.";
+    //         QMessageBox::warning(nullptr, "Cancelled", "Failed to delete");
+    //     }
+    // } else {
+    //     QMessageBox::warning(nullptr, "Cancelled", "file does not exist.");
+    // }
+
+    // bool jkl = ;
+    // qDebug()<<"bool :"<<jkl<<" ,"<<ui->comboBox_existingParamSelec->currentText();
+
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(
+        nullptr,
+        "Confirm Deletion",
+        QString("Are you sure you want to delete the sample '%1'?").arg(ui->comboBox_existingParamSelec->currentText()),
+        QMessageBox::Yes | QMessageBox::No
+        );
+
+    if (reply == QMessageBox::Yes) {
+        // Perform deletion
+        if (jsonManager.deleteSample(ui->comboBox_existingParamSelec->currentText())) {
+            QMessageBox::information(
+                nullptr,
+                "Deletion Successful",
+                QString("Sample '%1' has been deleted successfully.").arg(ui->comboBox_existingParamSelec->currentText())
+                );
+            int currIndex = ui->comboBox_existingParamSelec->currentIndex();
+            ui->comboBox_existingParamSelec->removeItem(currIndex);
+            qDebug() << "Sample deleted successfully.";
         } else {
-            //qDebug() << "Failed to delete the file.";
-            QMessageBox::warning(nullptr, "Cancelled", "Failed to delete");
+            QMessageBox::warning(
+                nullptr,
+                "Deletion Failed",
+                QString("Sample '%1' could not be deleted. It may not exist.").arg(ui->comboBox_existingParamSelec->currentText())
+                );
+            qWarning() << "Failed to delete sample.";
         }
     } else {
-        QMessageBox::warning(nullptr, "Cancelled", "file does not exist.");
+        qDebug() << "Deletion canceled by user.";
     }
 }
 
@@ -388,10 +441,14 @@ void MainWindow::parameters(int index){
     x = 0;
     f_x = 0;
     columnCount = 0;
-
+    int preIndex = jsonObject1.value("index").toInt();
     if(!isItemInComboBox(sN)){
-        qDebug()<<"insert triggered";
-        ui->comboBox_existingParamSelec->addItem(sN);
+        qDebug()<<"insert triggered"<<" ,"<<preIndex;
+        if(ui->comboBox_existingParamSelec->count() == 0){
+            qDebug()<<"empty";
+            ui->comboBox_existingParamSelec->clear();
+        }
+        ui->comboBox_existingParamSelec->addItem(sN, preIndex);
     }
     comboFlg = true;
     /*if (!xlsx.load()) {
@@ -486,36 +543,6 @@ int MainWindow::findLastNonEmptyRow(QXlsx::Document &xlsxDoc1) {
     return lastRow;
 }
 
-void MainWindow::on_pushButton_clicked()
-{
-    if(devState == devInitState){
-        if(comConfig){
-
-            QString correctPasscode = "897456";  // Define the correct passcode here
-            bool accessGranted = requestPasscode(correctPasscode);
-
-            if (accessGranted) {
-                QString command;
-                QString str1 = "3";
-                command = "set mode " + str1 + "\n";
-                writeSerial(command);
-                cw = new calibrationWin(this, serialComm);
-                connect(dataParser, &DataParser::calParsed, cw, &calibrationWin::onCalSet);
-                cw->setAttribute(Qt::WA_DeleteOnClose);
-                cw->show();
-            } else {
-
-            }
-
-        }
-        else{
-            QMessageBox::warning(this, "Error", "Please select COM port.");
-        }
-    }
-    else{
-        QMessageBox::critical(nullptr, "Error", "please stop the current operation");
-    }
-}
 
 void MainWindow::updateComPorts(){
     ui->comboBox_comPort->clear();
@@ -1161,6 +1188,7 @@ void MainWindow::updateLoadValue(int modeNumber, double loadValue){
                 qDebug()<<g%1000 + l%1000;
                 excelWrite(x, loadValue + temp);
                 ser->append(f_x, (loadValue+temp)/1000);
+                writeToLoadCellPlot(f_x, (loadValue+temp)/1000);
                 preV = (loadValue + temp)/1000;
                 preVx = loadValue + temp;
             }
@@ -1170,6 +1198,7 @@ void MainWindow::updateLoadValue(int modeNumber, double loadValue){
                 int temp = g%1000 + l%1000;
                 excelWrite(x, loadValue - temp);
                 ser->append(f_x, (loadValue-temp)/1000);
+                writeToLoadCellPlot(f_x, (loadValue-temp)/1000);
                 preV = (loadValue - temp)/1000;
                 preVx = loadValue - temp;
             }
@@ -1177,9 +1206,9 @@ void MainWindow::updateLoadValue(int modeNumber, double loadValue){
         else{
             //qDebug() << x << " ," << yValue;   // Print values for debugging - ne
             excelWrite(x, preVx);
-            ser->append(f_x, preV);
+            //ser->append(f_x, preV);
         }
-        ser->append(f_x, loadValue/1000);
+        //ser->append(f_x, loadValue/1000);
         //qDebug() << x << " ," << yValue;   // Print values for debugging
         //excelWrite(x, ya);                 // Write to excel
         x += 1;
@@ -1338,5 +1367,37 @@ void MainWindow::on_comboBox_existingParamSelec_currentIndexChanged(int index)
     }
     parameters(index);
     comboFlg = true;
+}
+
+
+void MainWindow::on_pushButton_calibra_clicked()
+{
+    if(devState == devInitState){
+        if(comConfig){
+
+            QString correctPasscode = "897456";  // Define the correct passcode here
+            bool accessGranted = requestPasscode(correctPasscode);
+
+            if (accessGranted) {
+                QString command;
+                QString str1 = "3";
+                command = "set mode " + str1 + "\n";
+                writeSerial(command);
+                cw = new calibrationWin(this, serialComm);
+                connect(dataParser, &DataParser::calParsed, cw, &calibrationWin::onCalSet);
+                cw->setAttribute(Qt::WA_DeleteOnClose);
+                cw->show();
+            } else {
+
+            }
+
+        }
+        else{
+            QMessageBox::warning(this, "Error", "Please select COM port.");
+        }
+    }
+    else{
+        QMessageBox::critical(nullptr, "Error", "please stop the current operation");
+    }
 }
 

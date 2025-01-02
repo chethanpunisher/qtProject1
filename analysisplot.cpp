@@ -52,7 +52,7 @@ void ExcelLoader2::load() {
             }
 
             qreal x = slNoValue.toInt() / 50.0;    // Scale down X-axis by 1/50
-            qreal y = sampleNameValue.toInt() / 1000.0;  // Scale down Y-axis by 1/1000
+            qreal y = (sampleNameValue.toInt() + 15) / 1000.0;  // Scale down Y-axis by 1/1000
             data.append(QPointF(x, y));
 
             if (y < yMin) yMin = y;

@@ -21,7 +21,7 @@ public:
     int getSampleWithHighestIndex();
     bool updateParameter(const QString& sampleName, const QString& parameterName, const QJsonValue& newValue);  // New function for updating individual parameters
     bool addParameter(const QString& sampleName, const QString& parameterName, const QJsonValue& value);  // New function to add a parameter
-
+    bool deleteSample(const QString& sampleName);
 
 private:
     QString filePath;  // Path to the JSON file

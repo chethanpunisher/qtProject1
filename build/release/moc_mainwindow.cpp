@@ -8,6 +8,7 @@
 
 #include "../../mainwindow.h"
 #include <QtGui/qtextcursor.h>
+#include <QtGui/qscreen.h>
 #include <QtCore/qmetatype.h>
 
 #include <QtCore/qtmochelpers.h>
@@ -52,7 +53,6 @@ constexpr auto qt_meta_stringdata_CLASSMainWindowENDCLASS = QtMocHelpers::string
     "updateRecentOperations",
     "on_pushButton_parameters_clicked",
     "on_pushButton_save_clicked",
-    "on_pushButton_clicked",
     "updateComPorts",
     "onComboBoxIndexChanged",
     "monitorConnection",
@@ -84,7 +84,8 @@ constexpr auto qt_meta_stringdata_CLASSMainWindowENDCLASS = QtMocHelpers::string
     "correctPasscode",
     "updateWave",
     "on_comboBox_existingParamSelec_currentTextChanged",
-    "on_comboBox_existingParamSelec_currentIndexChanged"
+    "on_comboBox_existingParamSelec_currentIndexChanged",
+    "on_pushButton_calibra_clicked"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -118,30 +119,30 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
       14,    0,  252,    2, 0x08,   14 /* Private */,
       15,    0,  253,    2, 0x08,   15 /* Private */,
       16,    0,  254,    2, 0x08,   16 /* Private */,
-      17,    0,  255,    2, 0x08,   17 /* Private */,
-      18,    1,  256,    2, 0x08,   18 /* Private */,
+      17,    1,  255,    2, 0x08,   17 /* Private */,
+      18,    0,  258,    2, 0x08,   19 /* Private */,
       19,    0,  259,    2, 0x08,   20 /* Private */,
-      20,    0,  260,    2, 0x08,   21 /* Private */,
-      21,    1,  261,    2, 0x08,   22 /* Private */,
+      20,    1,  260,    2, 0x08,   21 /* Private */,
+      21,    0,  263,    2, 0x08,   23 /* Private */,
       22,    0,  264,    2, 0x08,   24 /* Private */,
-      23,    0,  265,    2, 0x08,   25 /* Private */,
-      24,    1,  266,    2, 0x08,   26 /* Private */,
-      26,    1,  269,    2, 0x08,   28 /* Private */,
+      23,    1,  265,    2, 0x08,   25 /* Private */,
+      25,    1,  268,    2, 0x08,   27 /* Private */,
+      27,    0,  271,    2, 0x08,   29 /* Private */,
       28,    0,  272,    2, 0x08,   30 /* Private */,
       29,    0,  273,    2, 0x08,   31 /* Private */,
       30,    0,  274,    2, 0x08,   32 /* Private */,
       31,    0,  275,    2, 0x08,   33 /* Private */,
       32,    0,  276,    2, 0x08,   34 /* Private */,
-      33,    0,  277,    2, 0x08,   35 /* Private */,
-      34,    2,  278,    2, 0x08,   36 /* Private */,
-      37,    1,  283,    2, 0x08,   39 /* Private */,
-      39,    1,  286,    2, 0x08,   41 /* Private */,
+      33,    2,  277,    2, 0x08,   35 /* Private */,
+      36,    1,  282,    2, 0x08,   38 /* Private */,
+      38,    1,  285,    2, 0x08,   40 /* Private */,
+      40,    0,  288,    2, 0x08,   42 /* Private */,
       41,    0,  289,    2, 0x08,   43 /* Private */,
-      42,    0,  290,    2, 0x08,   44 /* Private */,
-      44,    1,  291,    2, 0x08,   45 /* Private */,
-      46,    0,  294,    2, 0x08,   47 /* Private */,
-      47,    1,  295,    2, 0x08,   48 /* Private */,
-      48,    1,  298,    2, 0x08,   50 /* Private */,
+      43,    1,  290,    2, 0x08,   44 /* Private */,
+      45,    0,  293,    2, 0x08,   46 /* Private */,
+      46,    1,  294,    2, 0x08,   47 /* Private */,
+      47,    1,  297,    2, 0x08,   49 /* Private */,
+      48,    0,  300,    2, 0x08,   51 /* Private */,
 
  // slots: parameters
     QMetaType::Void, QMetaType::QString,    3,
@@ -157,30 +158,30 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void,
     QMetaType::Void, QMetaType::Int,   12,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Int,   12,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::QString,   25,
-    QMetaType::Void, QMetaType::QString,   27,
+    QMetaType::Void, QMetaType::QString,   24,
+    QMetaType::Void, QMetaType::QString,   26,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int, QMetaType::Double,   35,   36,
-    QMetaType::Void, QMetaType::Int,   38,
-    QMetaType::QString, QMetaType::Int,   40,
+    QMetaType::Void, QMetaType::Int, QMetaType::Double,   34,   35,
+    QMetaType::Void, QMetaType::Int,   37,
+    QMetaType::QString, QMetaType::Int,   39,
     QMetaType::Void,
-    0x80000000 | 43,
-    QMetaType::Bool, QMetaType::QString,   45,
+    0x80000000 | 42,
+    QMetaType::Bool, QMetaType::QString,   44,
     QMetaType::Double,
     QMetaType::Void, QMetaType::QString,    3,
     QMetaType::Void, QMetaType::Int,   12,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -220,8 +221,6 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
         // method 'on_pushButton_parameters_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_pushButton_save_clicked'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'on_pushButton_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'updateComPorts'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
@@ -281,7 +280,9 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<const QString &, std::false_type>,
         // method 'on_comboBox_existingParamSelec_currentIndexChanged'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<int, std::false_type>
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        // method 'on_pushButton_calibra_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
 } };
@@ -304,35 +305,35 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 9: _t->updateRecentOperations(); break;
         case 10: _t->on_pushButton_parameters_clicked(); break;
         case 11: _t->on_pushButton_save_clicked(); break;
-        case 12: _t->on_pushButton_clicked(); break;
-        case 13: _t->updateComPorts(); break;
-        case 14: _t->onComboBoxIndexChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 15: _t->monitorConnection(); break;
-        case 16: _t->updateTimeLapse(); break;
-        case 17: _t->on_comboBox_mode_currentIndexChanged1((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 18: _t->on_pushButton_up_clicked(); break;
-        case 19: _t->on_pushButton_down_clicked(); break;
-        case 20: _t->onSerialDataReceived((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
-        case 21: _t->onSerialPortError((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
-        case 22: _t->on_pushButton_comConnect_clicked(); break;
-        case 23: _t->on_pushButton_up_pressed(); break;
-        case 24: _t->on_pushButton_up_released(); break;
-        case 25: _t->on_pushButton_down_pressed(); break;
-        case 26: _t->on_pushButton_down_released(); break;
-        case 27: _t->on_pushButton_2_clicked(); break;
-        case 28: _t->updateLoadValue((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<double>>(_a[2]))); break;
-        case 29: _t->updateCycleCount((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 30: { QString _r = _t->getBatchString((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])));
+        case 12: _t->updateComPorts(); break;
+        case 13: _t->onComboBoxIndexChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 14: _t->monitorConnection(); break;
+        case 15: _t->updateTimeLapse(); break;
+        case 16: _t->on_comboBox_mode_currentIndexChanged1((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 17: _t->on_pushButton_up_clicked(); break;
+        case 18: _t->on_pushButton_down_clicked(); break;
+        case 19: _t->onSerialDataReceived((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
+        case 20: _t->onSerialPortError((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
+        case 21: _t->on_pushButton_comConnect_clicked(); break;
+        case 22: _t->on_pushButton_up_pressed(); break;
+        case 23: _t->on_pushButton_up_released(); break;
+        case 24: _t->on_pushButton_down_pressed(); break;
+        case 25: _t->on_pushButton_down_released(); break;
+        case 26: _t->on_pushButton_2_clicked(); break;
+        case 27: _t->updateLoadValue((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<double>>(_a[2]))); break;
+        case 28: _t->updateCycleCount((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 29: { QString _r = _t->getBatchString((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])));
             if (_a[0]) *reinterpret_cast< QString*>(_a[0]) = std::move(_r); }  break;
-        case 31: _t->threadFunc(); break;
-        case 32: { std::pair<QString,QString> _r = _t->getCurrentDateAndTime();
+        case 30: _t->threadFunc(); break;
+        case 31: { std::pair<QString,QString> _r = _t->getCurrentDateAndTime();
             if (_a[0]) *reinterpret_cast< std::pair<QString,QString>*>(_a[0]) = std::move(_r); }  break;
-        case 33: { bool _r = _t->requestPasscode((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1])));
+        case 32: { bool _r = _t->requestPasscode((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1])));
             if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = std::move(_r); }  break;
-        case 34: { double _r = _t->updateWave();
+        case 33: { double _r = _t->updateWave();
             if (_a[0]) *reinterpret_cast< double*>(_a[0]) = std::move(_r); }  break;
-        case 35: _t->on_comboBox_existingParamSelec_currentTextChanged((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
-        case 36: _t->on_comboBox_existingParamSelec_currentIndexChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 34: _t->on_comboBox_existingParamSelec_currentTextChanged((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
+        case 35: _t->on_comboBox_existingParamSelec_currentIndexChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 36: _t->on_pushButton_calibra_clicked(); break;
         default: ;
         }
     }

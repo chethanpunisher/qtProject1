@@ -36,13 +36,13 @@ namespace {
 struct qt_meta_stringdata_CLASScalibrationWinENDCLASS_t {};
 constexpr auto qt_meta_stringdata_CLASScalibrationWinENDCLASS = QtMocHelpers::stringData(
     "calibrationWin",
-    "on_pushButton_clicked",
-    "",
     "on_pushButton_2_clicked",
+    "",
     "on_calibrationDownButton_pressed",
     "on_calibrationDownButton_released",
     "on_calibrationUpButton_pressed",
     "on_calibrationUpButton_released",
+    "on_pushButton_calibrate_clicked",
     "onCalSet",
     "calVal"
 );
@@ -94,8 +94,6 @@ Q_CONSTINIT const QMetaObject calibrationWin::staticMetaObject = { {
     qt_incomplete_metaTypeArray<qt_meta_stringdata_CLASScalibrationWinENDCLASS_t,
         // Q_OBJECT / Q_GADGET
         QtPrivate::TypeAndForceComplete<calibrationWin, std::true_type>,
-        // method 'on_pushButton_clicked'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_pushButton_2_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_calibrationDownButton_pressed'
@@ -105,6 +103,8 @@ Q_CONSTINIT const QMetaObject calibrationWin::staticMetaObject = { {
         // method 'on_calibrationUpButton_pressed'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_calibrationUpButton_released'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_pushButton_calibrate_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'onCalSet'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
@@ -119,12 +119,12 @@ void calibrationWin::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         auto *_t = static_cast<calibrationWin *>(_o);
         (void)_t;
         switch (_id) {
-        case 0: _t->on_pushButton_clicked(); break;
-        case 1: _t->on_pushButton_2_clicked(); break;
-        case 2: _t->on_calibrationDownButton_pressed(); break;
-        case 3: _t->on_calibrationDownButton_released(); break;
-        case 4: _t->on_calibrationUpButton_pressed(); break;
-        case 5: _t->on_calibrationUpButton_released(); break;
+        case 0: _t->on_pushButton_2_clicked(); break;
+        case 1: _t->on_calibrationDownButton_pressed(); break;
+        case 2: _t->on_calibrationDownButton_released(); break;
+        case 3: _t->on_calibrationUpButton_pressed(); break;
+        case 4: _t->on_calibrationUpButton_released(); break;
+        case 5: _t->on_pushButton_calibrate_clicked(); break;
         case 6: _t->onCalSet((*reinterpret_cast< std::add_pointer_t<double>>(_a[1]))); break;
         default: ;
         }

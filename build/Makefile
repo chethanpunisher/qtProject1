@@ -431,6 +431,7 @@ Makefile: ..\RTSerialPortViewer.pro C:\Qt1\6.7.2\msvc2019_64\mkspecs\win32-msvc\
 		..\RTSerialPortViewer.pro \
 		C:\Qt1\6.7.2\msvc2019_64\lib\Qt6Charts.prl \
 		C:\Qt1\6.7.2\msvc2019_64\lib\Qt6OpenGLWidgets.prl \
+		C:\Qt1\6.7.2\msvc2019_64\lib\Qt6PrintSupport.prl \
 		C:\Qt1\6.7.2\msvc2019_64\lib\Qt6Widgets.prl \
 		C:\Qt1\6.7.2\msvc2019_64\lib\Qt6OpenGL.prl \
 		C:\Qt1\6.7.2\msvc2019_64\lib\Qt6Gui.prl \
@@ -440,6 +441,7 @@ Makefile: ..\RTSerialPortViewer.pro C:\Qt1\6.7.2\msvc2019_64\mkspecs\win32-msvc\
 		C:\Qt1\6.7.2\msvc2019_64\mkspecs\features\build_pass.prf \
 		C:\Qt1\6.7.2\msvc2019_64\lib\Qt6Chartsd.prl \
 		C:\Qt1\6.7.2\msvc2019_64\lib\Qt6OpenGLWidgetsd.prl \
+		C:\Qt1\6.7.2\msvc2019_64\lib\Qt6PrintSupportd.prl \
 		C:\Qt1\6.7.2\msvc2019_64\lib\Qt6Widgetsd.prl \
 		C:\Qt1\6.7.2\msvc2019_64\lib\Qt6OpenGLd.prl \
 		C:\Qt1\6.7.2\msvc2019_64\lib\Qt6Guid.prl \
@@ -794,6 +796,7 @@ C:\Qt1\6.7.2\msvc2019_64\mkspecs\features\lex.prf:
 ..\RTSerialPortViewer.pro:
 C:\Qt1\6.7.2\msvc2019_64\lib\Qt6Charts.prl:
 C:\Qt1\6.7.2\msvc2019_64\lib\Qt6OpenGLWidgets.prl:
+C:\Qt1\6.7.2\msvc2019_64\lib\Qt6PrintSupport.prl:
 C:\Qt1\6.7.2\msvc2019_64\lib\Qt6Widgets.prl:
 C:\Qt1\6.7.2\msvc2019_64\lib\Qt6OpenGL.prl:
 C:\Qt1\6.7.2\msvc2019_64\lib\Qt6Gui.prl:
@@ -803,6 +806,7 @@ C:\Qt1\6.7.2\msvc2019_64\lib\Qt6EntryPoint.prl:
 C:\Qt1\6.7.2\msvc2019_64\mkspecs\features\build_pass.prf:
 C:\Qt1\6.7.2\msvc2019_64\lib\Qt6Chartsd.prl:
 C:\Qt1\6.7.2\msvc2019_64\lib\Qt6OpenGLWidgetsd.prl:
+C:\Qt1\6.7.2\msvc2019_64\lib\Qt6PrintSupportd.prl:
 C:\Qt1\6.7.2\msvc2019_64\lib\Qt6Widgetsd.prl:
 C:\Qt1\6.7.2\msvc2019_64\lib\Qt6OpenGLd.prl:
 C:\Qt1\6.7.2\msvc2019_64\lib\Qt6Guid.prl:

@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT += core gui widgets charts serialport
+QT += core gui widgets charts serialport printsupport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -44,6 +44,7 @@ SOURCES += \
         serialcomm.cpp \
         serialmanager.cpp \
         plotwindow.cpp \
+        qcustomplot.cpp \
         worker.cpp
 
 HEADERS += \
@@ -58,6 +59,7 @@ HEADERS += \
         serialcomm.h \
         serialmanager.h \
         plotwindow.h \
+        qcustomplot.h \
         worker.h
 
 FORMS += \

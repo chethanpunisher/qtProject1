@@ -86,7 +86,7 @@ public:
     QPushButton *pushButton_comConnect;
     QSpacerItem *horizontalSpacer_2;
     QPushButton *pushButton_2;
-    QPushButton *pushButton;
+    QPushButton *pushButton_calibra;
     QLabel *label_portStatus;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -257,7 +257,6 @@ public:
 
         comboBox_existingParamSelec = new QComboBox(centralWidget);
         comboBox_existingParamSelec->setObjectName("comboBox_existingParamSelec");
-        comboBox_existingParamSelec->setStyleSheet(QString::fromUtf8("border: 2px  solid lightblue; border-radius: 5px"));
 
         verticalLayout->addWidget(comboBox_existingParamSelec);
 
@@ -443,10 +442,10 @@ public:
 
         horizontalLayout_11->addWidget(pushButton_2);
 
-        pushButton = new QPushButton(centralWidget);
-        pushButton->setObjectName("pushButton");
+        pushButton_calibra = new QPushButton(centralWidget);
+        pushButton_calibra->setObjectName("pushButton_calibra");
 
-        horizontalLayout_11->addWidget(pushButton);
+        horizontalLayout_11->addWidget(pushButton_calibra);
 
         label_portStatus = new QLabel(centralWidget);
         label_portStatus->setObjectName("label_portStatus");
@@ -515,7 +514,7 @@ public:
         label_9->setText(QCoreApplication::translate("MainWindow", "Port -", nullptr));
         pushButton_comConnect->setText(QCoreApplication::translate("MainWindow", "Connect", nullptr));
         pushButton_2->setText(QCoreApplication::translate("MainWindow", "TARE", nullptr));
-        pushButton->setText(QCoreApplication::translate("MainWindow", "Calibration", nullptr));
+        pushButton_calibra->setText(QCoreApplication::translate("MainWindow", "Calibration", nullptr));
         label_portStatus->setText(QCoreApplication::translate("MainWindow", "COM : inActive", nullptr));
     } // retranslateUi
 

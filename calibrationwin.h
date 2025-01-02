@@ -27,7 +27,6 @@ public:
     ~calibrationWin();
 
 private slots:
-    void on_pushButton_clicked();
 
     void on_pushButton_2_clicked();
 
@@ -39,6 +38,8 @@ private slots:
 
     void on_calibrationUpButton_released();
 
+
+    void on_pushButton_calibrate_clicked();
 
 public slots:
     void onCalSet(double calVal);

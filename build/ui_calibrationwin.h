@@ -31,7 +31,7 @@ public:
     QLineEdit *lineEdit_calibrationIput;
     QHBoxLayout *horizontalLayout_2;
     QSpacerItem *horizontalSpacer;
-    QPushButton *pushButton;
+    QPushButton *pushButton_calibrate;
     QHBoxLayout *horizontalLayout_6;
     QPushButton *calibrationUpButton;
     QPushButton *calibrationDownButton;
@@ -76,10 +76,10 @@ public:
 
         horizontalLayout_2->addItem(horizontalSpacer);
 
-        pushButton = new QPushButton(calibrationWin);
-        pushButton->setObjectName("pushButton");
+        pushButton_calibrate = new QPushButton(calibrationWin);
+        pushButton_calibrate->setObjectName("pushButton_calibrate");
 
-        horizontalLayout_2->addWidget(pushButton);
+        horizontalLayout_2->addWidget(pushButton_calibrate);
 
 
         verticalLayout->addLayout(horizontalLayout_2);
@@ -162,7 +162,7 @@ public:
     {
         calibrationWin->setWindowTitle(QCoreApplication::translate("calibrationWin", "Dialog", nullptr));
         label->setText(QCoreApplication::translate("calibrationWin", "Enter Calibration Value -", nullptr));
-        pushButton->setText(QCoreApplication::translate("calibrationWin", "Calibrate", nullptr));
+        pushButton_calibrate->setText(QCoreApplication::translate("calibrationWin", "Calibrate", nullptr));
         calibrationUpButton->setText(QCoreApplication::translate("calibrationWin", "Up", nullptr));
         calibrationDownButton->setText(QCoreApplication::translate("calibrationWin", "Down", nullptr));
         label_2->setText(QCoreApplication::translate("calibrationWin", "USER NAME: ", nullptr));

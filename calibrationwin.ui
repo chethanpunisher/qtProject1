@@ -46,7 +46,7 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton">
+        <widget class="QPushButton" name="pushButton_calibrate">
          <property name="text">
           <string>Calibrate</string>
          </property>

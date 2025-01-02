@@ -11,6 +11,7 @@
 
 QString jsonFilePath1 = "sampleData.json";
 JsonManager jsonManager1(jsonFilePath1);
+QString folderPath = "C:/SampleData";
 
 elementsContainer::elementsContainer(QWidget *parent)
     : QDialog(parent)
@@ -39,6 +40,21 @@ elementsContainer::elementsContainer(QWidget *parent)
         }
         //emit dataAvailable(ui->lineEdit_sampleName->text(), ui->lineEdit_frequency->text(), ui->lineEdit_setPoint->text(), ui->lineEdit_amplitude->text(), ui->lineEdit_stopCycle->text(),completer);
     });
+
+    // Create a QDir object for the folder path
+    QDir dir(folderPath);
+
+    // Check if the directory exists
+    if (!dir.exists()) {
+        // Attempt to create the directory
+        if (dir.mkpath(folderPath)) {
+            qDebug() << "Folder created successfully at:" << folderPath;
+        } else {
+            qWarning() << "Failed to create folder at:" << folderPath;
+        }
+    } else {
+        qDebug() << "Folder already exists at:" << folderPath;
+    }
 }
 
 
@@ -189,7 +205,6 @@ void elementsContainer::saveExcel(){
     //excelFilePath = directory;
 
     if (!excelSaveFlg) {
-
         excelFilePath = FolderCreation();
         QString filePath = excelFilePath + "/" + getBatchString(x);
 
@@ -250,32 +265,32 @@ void elementsContainer::dialogOpen(){
 
 QString elementsContainer::FolderCreation(){
     // Open a QFileDialog to select or create a folder path
-    QString folderPath1 = QFileDialog::getExistingDirectory(nullptr, "Select or Create Folder",
-                                                            QDir::homePath(),
-                                                            QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+    // QString folderPath1 = QFileDialog::getExistingDirectory(nullptr, "Select or Create Folder",
+    //                                                         QDir::homePath(),
+    //                                                         QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
     QString name = ui->lineEdit_sampleName->text();
-    QString folderPath = folderPath1 + "/" + name;
+    QString folderPath1 = folderPath + "/" + name;
     // Check if the user selected a valid path
-    if (folderPath.isEmpty()) {
+    if (folderPath1.isEmpty()) {
         qDebug() << "No folder selected.";
         return QString(); // Return an empty string if no folder was selected
     }
 
     // Check if the folder exists; if not, create it
     QDir dir;
-    if (!dir.exists(folderPath)) {
-        if (dir.mkpath(folderPath)) {
-            qDebug() << "Folder created successfully at:" << folderPath;
+    if (!dir.exists(folderPath1)) {
+        if (dir.mkpath(folderPath1)) {
+            qDebug() << "Folder created successfully at:" << folderPath1;
         } else {
-            qDebug() << "Failed to create folder at:" << folderPath;
+            qDebug() << "Failed to create folder at:" << folderPath1;
             return QString();
         }
     } else {
-        qDebug() << "Folder already exists at:" << folderPath;
+        qDebug() << "Folder already exists at:" << folderPath1;
     }
 
     // Return the path of the selected or newly created folder
-    return folderPath;
+    return folderPath1;
 }
 
 QString elementsContainer::getBatchString(int number){
