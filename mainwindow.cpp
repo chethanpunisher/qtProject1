@@ -333,7 +333,7 @@ void MainWindow::on_pushButton_stop_clicked()
     QString str1;
     QString command;
     str1 = "1";//ui->lineEdit_setPoint->text();
-    command = "stop " + str1 + "\n";
+    command = "stop\n";
     writeSerial(command);
     deviceState |= STOP_OPERATION;
     //serialNew->writeToSerial(command);
