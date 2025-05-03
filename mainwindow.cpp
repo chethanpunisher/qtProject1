@@ -333,7 +333,7 @@ void MainWindow::on_pushButton_stop_clicked()
     QString str1;
     QString command;
     str1 = "1";//ui->lineEdit_setPoint->text();
-    command = "stop " + str1 + "\n";
+    command = "stop\n";
     writeSerial(command);
     deviceState |= STOP_OPERATION;
     //serialNew->writeToSerial(command);
@@ -1176,7 +1176,7 @@ void MainWindow::updateLoadValue(int modeNumber, double loadValue){
     qDebug() << "Mode" << modeNumber << "Load Value:" << loadValue << " , "<< f_x;
     devState = modeNumber;
     if(modeNumber == 1){
-        int ya = static_cast<int>(loadValue);          // Cast to int
+        double ya = static_cast<int>(loadValue);          // Cast to int
         globalY = ya;
         if(((ya/1000) < ((amp.toInt() + sP.toInt() + 1)/1000)) && ((ya/1000) > ((amp.toInt() - sP.toInt() - 1)/1000))){
             //qDebug() << x << " ," << yValue;   // Print values for debugging - ne

@@ -104,7 +104,7 @@ void elementsContainer::on_pushButton_Set_clicked()
         }
         else{
             newSampleParams["sampleName"] = ui->lineEdit_sampleName->text();
-            newSampleParams["frequency"] = ui->lineEdit_frequency->text().toInt();
+            newSampleParams["frequency"] = ui->lineEdit_frequency->text().toDouble();
             newSampleParams["stopCycle"] = ui->lineEdit_stopCycle->text().toInt();
             newSampleParams["amplitude"] = ((int)(ui->lineEdit_setPoint->text().toFloat()*1000));
             newSampleParams["setPoint"] = ((int)(ui->lineEdit_amplitude->text().toFloat()*1000));
