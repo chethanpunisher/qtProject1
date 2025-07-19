@@ -32,7 +32,7 @@ void calibrationWin::writeSerial(const QString data1){
 void calibrationWin::generateJsonConfig(const QString &filePath, const double &calibrationVal) {
 
     QJsonObject configObject;
-
+    qDebug() << "calibration fac = " << calibrationVal;
     // Check if the file exists
     QFile jsonFile(filePath);
     if (jsonFile.exists()) {
@@ -97,17 +97,24 @@ void calibrationWin::on_pushButton_2_clicked()
 }
 
 void calibrationWin::readSerial(const QString &caliVal){
-    /*QString temp = caliVal;
-    QString calData = temp.remove("\r\n");
-    QString configFilePath = "config.json";
-    generateJsonConfig(configFilePath, calData);*/
-    QString data1 = caliVal;
-    if(data1.startsWith("calibrate")){
-        bool ok;
-        data1.remove("calibrate ").remove("\r\n");
-        //QString configFilePath = "config.json";
-        //generateJsonConfig(configFilePath, data1);
-    }
+    // QString data1 = caliVal;
+    // if(data1.startsWith("calibrate")){
+    //     // Remove the "calibration " prefix and "\r\n" suffix
+    //     data1.remove("calibrate ").remove("\n");
+        
+    //     // Convert the remaining string to double
+    //     bool ok;
+    //     double calibrationValue = data1.toDouble(&ok);
+        
+    //     if(ok){
+    //         // Save the calibration value to config.json
+    //         QString configFilePath = "config.json";
+    //         generateJsonConfig(configFilePath, calibrationValue);
+    //         qDebug() << "Calibration value saved:" << calibrationValue;
+    //     } else {
+    //         qWarning() << "Failed to parse calibration value:" << data1;
+    //     }
+    // }
 }
 
 

@@ -1,0 +1,186 @@
+# Qt-es
+object_script.*.Release
+object_script.*.Debug
+*_plugin_import.cpp
+/.qmake.cache
+/.qmake.stash
+*.pro.user
+*.pro.user.*
+*.qbs.user
+*.qbs.user.*
+*.moc
+moc_*.cpp
+moc_*.h
+qrc_*.cpp
+ui_*.h
+*.qmlc
+*.jsc
+Makefile*
+*build-*
+*.so
+*.so.*
+
+# Qt unit tests
+target_wrapper.*
+
+# QtCreator
+*.autosave
+
+# QtCreator Qml
+*.qmlproject.user
+*.qmlproject.user.*
+
+# QtCreator CMake
+CMakeLists.txt.user*
+
+# QtCreator 4.8< compilation database 
+compile_commands.json
+
+# QtCreator local machine specific files for imported projects
+*creator.user*
+
+# Build directories
+build/
+build-*/
+debug/
+release/
+Debug/
+Release/
+*-build-*
+
+# Generated files
+moc_*.cpp
+moc_*.h
+qrc_*.cpp
+ui_*.h
+*.moc
+
+# Object files
+*.o
+*.obj
+*.a
+*.lib
+*.dll
+*.dylib
+*.so
+*.so.*
+
+# Executables
+*.exe
+*.app
+*.dmg
+
+# Temporary files
+*~
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+# Qt Creator
+*.pro.user*
+*.qbs.user*
+*.user
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+*.cmake
+
+# IDE files
+*.suo
+*.ncb
+*.vcproj
+*.sln
+*.user
+*.aps
+*.pch
+*.vspscc
+*_i.c
+*_p.c
+*.tlb
+*.tlh
+*.bak
+*.cache
+*.ilk
+*.log
+*.sbr
+*.sdf
+*.opensdf
+*.unsuccessfulbuild
+ipch/
+*.ib_pdb_index
+*.idb
+*.pdb
+
+# Windows
+[Dd]esktop.ini
+ehthumbs.db
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Logs and databases
+*.log
+*.sqlite
+*.db
+
+# Runtime configuration files (keep template versions)
+config.json
+sampleData.json
+
+# Excel files (generated during runtime)
+*.xlsx
+*.xls
+
+# Backup files
+*.orig
+*.rej
+*.bak
+
+# Compiled Python files (if any Python scripts)
+*.pyc
+__pycache__/
+
+# Archive files
+*.zip
+*.tar.gz
+*.rar
+*.7z 

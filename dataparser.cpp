@@ -53,7 +53,7 @@ void DataParser::processMessage(const QString& message) {
     // Match against Calibration value (CC)
     match = calSetRegex.match(message);
     if (match.hasMatch()) {
-        double calV = match.captured(1).toInt();  // Extract the cycle count
+        double calV = match.captured(1).toDouble();  // Extract the cycle count
         emit calParsed(calV);  // Emit the parsed cycle count
         //qDebug() << "Parsed Cycle Count:" << cycleCount;
         return;
