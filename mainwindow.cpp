@@ -16,6 +16,8 @@ int MainWindow::x = 0;
 QString jsonFilePath = "sampleData.json";
 JsonManager jsonManager(jsonFilePath);
 
+static int cycleEditValueInt = 0;
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
@@ -75,6 +77,7 @@ MainWindow::MainWindow(QWidget *parent) :
     comboFlg = false;
     //xlsx = new QXlsx::Document(this);
     graphFlg = false;
+    isPaused = false;
 }
 
 MainWindow::~MainWindow()
@@ -248,12 +251,17 @@ void MainWindow::on_pushButton_start_clicked()
 
                 str1 = sC;//ui->lineEdit_stopCycle->text();
                 ui->label_stopCycle->setText(str1);
+                sc = str1.toInt() - cycleEditValueInt;
+                str1 = QString::number(sc);
                 command = "stop cycle " + str1 + "\n";
-                sc = str1.toInt();
                 writeSerial(command);
                 startTimer();
                 deviceState |= START_OPERATION;
                 startFlg = true;
+                
+                // Reset pause state when starting operation
+                isPaused = false;
+                ui->pushButton_hold->setText("Pause");
 
                 if(xlsx == nullptr){
                     xlsx = new QXlsx::Document;
@@ -337,6 +345,11 @@ void MainWindow::on_pushButton_stop_clicked()
     writeSerial(command);
     deviceState |= STOP_OPERATION;
     //serialNew->writeToSerial(command);
+    cycleEditValueInt = 0;
+    
+    // Reset pause state when stopping operation
+    isPaused = false;
+    ui->pushButton_hold->setText("Pause");
 }
 
 
@@ -1238,12 +1251,14 @@ void MainWindow::updateLoadValue(int modeNumber, double loadValue){
 
 void MainWindow::updateCycleCount(int cycleCount){
     qDebug() << "CC " << cycleCount;
-    QString data = QString::number(cycleCount);
+    int res = cycleCount + cycleEditValueInt;
+    QString data = QString::number(res);
     ui->lineEdit_currentCycle->setText(data);  // Display the string in the lineEdit
     timeOutNum = cycleCount;
     if (cycleCount == sc) {
         startFlg = false;
         on_pushButton_save_clicked();
+        cycleEditValueInt = 0;
     }
     saveEn = true;
 }
@@ -1398,6 +1413,61 @@ void MainWindow::on_pushButton_calibra_clicked()
     }
     else{
         QMessageBox::critical(nullptr, "Error", "please stop the current operation");
+    }
+}
+
+
+void MainWindow::on_pushButton_cycleEdit_clicked()
+{
+    QString correctPasscode = "897456";  // Define the correct passcode here
+    bool accessGranted = requestPasscode(correctPasscode);
+    
+    if (accessGranted) {
+        bool ok;
+        QString cycleEditValue = QInputDialog::getText(this, "Cycle Edit", 
+                                                      "Enter cycle edit value - ", 
+                                                      QLineEdit::Normal, 
+                                                      "", &ok);
+        
+        if (ok && !cycleEditValue.isEmpty()) {
+            // Store the value in a local variable (you might want to make this a member variable)
+            QString localCycleEditValue = cycleEditValue;
+            
+            // Optional: Show confirmation message
+            QMessageBox::information(this, "Success", 
+                                   QString("Cycle edit value set to: %1").arg(localCycleEditValue));
+            
+            qDebug() << "Cycle edit value entered:" << localCycleEditValue;
+            cycleEditValueInt = localCycleEditValue.toInt();
+            // You can add additional logic here to use the cycle edit value
+            // For example, you might want to store it in a member variable:
+            // this->cycleEditValue = localCycleEditValue;
+        }
+        else if (ok && cycleEditValue.isEmpty()) {
+            QMessageBox::warning(this, "Warning", "Cycle edit value cannot be empty.");
+        }
+        // If user clicked Cancel, do nothing
+    }
+    // If password was incorrect, requestPasscode already shows the error message
+}
+
+
+void MainWindow::on_pushButton_hold_clicked()
+{
+    if (isPaused) {
+        // Currently paused, so send resume command
+        QString command = "resume\n";
+        writeSerial(command);
+        isPaused = false;
+        ui->pushButton_hold->setText("Pause");
+        qDebug() << "Resume command sent";
+    } else {
+        // Currently running, so send pause command
+        QString command = "pause\n";
+        writeSerial(command);
+        isPaused = true;
+        ui->pushButton_hold->setText("Resume");
+        qDebug() << "Pause command sent";
     }
 }
 

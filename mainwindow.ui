@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>953</width>
-    <height>519</height>
+    <height>572</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -28,7 +28,7 @@ color: rgb(0, 0, 0);</string>
        <number>0</number>
       </property>
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0,0,0,0,0,0,0,0,0,0">
+       <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0,0,0,0,0,0,0,0,0,0,0,0">
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
@@ -253,6 +253,20 @@ color: rgb(0, 0, 0);</string>
            </size>
           </property>
          </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_cycleEdit">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_hold">
+          <property name="text">
+           <string>Hold</string>
+          </property>
+         </widget>
         </item>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_9">

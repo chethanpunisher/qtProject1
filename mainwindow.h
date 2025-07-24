@@ -128,6 +128,10 @@ private slots:
 
     void on_pushButton_calibra_clicked();
 
+    void on_pushButton_cycleEdit_clicked();
+
+    void on_pushButton_hold_clicked();
+
 private:
     void initUI();
     void serialInit(QString port);
@@ -209,6 +213,7 @@ private:
     QString comPortName;
     bool comboFlg;
     bool graphFlg;
+    bool isPaused;
     //QCustomPlot *customPlot;
 };
 
